@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
+title: Anker`s Blog
+subtitle: To Be No.1
+description: Life is shot!
 keywords:
-author: John Doe
+author: AnkerLi
 language:
 timezone:
 
@@ -73,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: BlueLake
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
