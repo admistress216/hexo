@@ -7,13 +7,13 @@ version: 2.0.1
 
 # Header
 menu:
-  - page: 首页
+  - page: home
     directory: .
     icon: fa-home
   - page: archive
     directory: archives/
     icon: fa-archive
-  - page: 关于
+  - page: about
     directory: about/
     icon: fa-user
   - page: rss
@@ -100,7 +100,7 @@ busuanzi: true ## If you want to use Busuanzi page views please set the value to
 
 # About page
 about:
-  photo_url: https://mmbiz.qpic.cn/mmbiz_jpg/cTfI0iaRTvoxnicPsx02UmLuuwGNDI4SdB98Um9tIvYsclH59eO2TvNHMgUiczebRbmy1ibYIDLG9ooCmia94ndqMKA/0?wx_fmt=jpeg
+  photo_url: http://img2.ph.126.net/Vwkx2HCN3tg8ZilyKUBvbA==/6597846021868067000.jpg
   items:
   - label: email
     url: mailto:lizengcai_vip@sina.com
@@ -122,7 +122,9 @@ about:
 links:
   - title: V2EX
     url: https://www.v2ex.com
-  - title: site-name2
-    url: http://www.example2.com/
-  - title: site-name3
-    url: http://www.example3.com/
+  - title: GITHUB
+    url: http://www.github.com/
+  - title: CSDN
+    url: https://www.csdn.net/
+  - title: 雪球
+    url: https://xueqiu.com/

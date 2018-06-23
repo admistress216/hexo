@@ -8,7 +8,7 @@ subtitle: To Be No.1
 description: Life is shot!
 keywords:
 author: AnkerLi
-language:
+language: zh-CN
 timezone:
 
 # URL
@@ -81,3 +81,25 @@ deploy:
   type: git
   repo: ssh://git@github.com/anker1992/anker1992.github.io.git
   branch: master
+
+# 用于搜索
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true
+
+rss: /atom.xml

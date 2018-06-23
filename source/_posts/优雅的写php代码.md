@@ -1,12 +1,13 @@
 ---
 title: 优雅的写php代码
 date: 2018-06-22 00:42:38
-tags:
+categories:
+    - php总结
 ---
-1. 遍历数组获取新的数据结构
+### 1. 遍历数组获取新的数据结构
 
   
-```
+``` php
 $arr = [
     'test1' => 'John',
     'test2' => 'Jerry',
@@ -39,11 +40,11 @@ unset($val);
 
 ```
 
-2.ajax返回错误状态使用try...catch...
+### 2.ajax返回错误状态使用try...catch...
   
 下面有段逻辑:
 
-````
+``` php
 class UserModel
 {
     public function login($username = '', $password = '')
@@ -84,11 +85,11 @@ class UserController
     }
 }
 
-````
+```
 
  使用try...catch...改写后:
  
-````
+``` php
 class UserModel
 {
     public function login($username = '', $password = '')
@@ -127,4 +128,4 @@ class UserController
     }
 }
 
-````
+```
