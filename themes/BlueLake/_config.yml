@@ -100,7 +100,7 @@ busuanzi: true ## If you want to use Busuanzi page views please set the value to
 
 # About page
 about:
-  photo_url: http://img2.ph.126.net/Vwkx2HCN3tg8ZilyKUBvbA==/6597846021868067000.jpg
+  photo_url: http://blog.cmdapps.com/1.jpg
   items:
   - label: email
     url: mailto:lizengcai_vip@sina.com
