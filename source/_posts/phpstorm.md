@@ -22,14 +22,13 @@ categories: php总结
 > command + shift + u : 大小写快速切换
 > command + shift + [/] : 选项卡快速切换
 > command + +/- : 代码块展开/收缩
-> command + shift + f : find in path
-> command + f/r : find/replace
 > command + delete : delete one line
 > alt + / : 代码补全
 > command + , : open setting
 > command + j : live templates
 > control + `(反引号) : switcher1
 > control + tab : switch2
+> command + p : 参数提示
 
 
 导航快捷键:
