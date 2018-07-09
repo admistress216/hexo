@@ -10,8 +10,17 @@ tags:
 <img src="http://resource.cmdapps.com/2018/07/contents.png"/>
 <center>目录结构</center>
 
-## 2.基础操作
-### 2.1控制器示例
+## 2.基础知识点
+### 2.1 请求
+```php
+$request = Yii::$app->request;
+$id = $request->get('id', 1); //相当于$id = isset($_GET['id']) ? $_GET['id'] : 1;
+$method = Yii::$app->request->method;
+$headers = Yii::$app->request->headers; //获取头部
+$userHost = Yii::$app->request->userHost;
+$userIP = Yii::$app->request->userIP;
+```
+### 2.2控制器示例
 ```php
 namespace app\controllers;
 
@@ -26,7 +35,7 @@ class SiteController extends Controller
 }
 ```
 
-### 2.2模型示例
+### 2.3模型示例
 ```php
 namespace app\models;
 
@@ -63,13 +72,18 @@ class EntryForm extends Model
 }
 ```
 
-### 2.3视图关键点讲解
-#### 2.3.1布局
+### 2.4视图关键点讲解
+#### 2.4.1布局
 默认情况下,@app/views/layouts/main.php文件中放置公共布局文件,在公共文件中$content
 用于调用控制器中render方法渲染内容视图后的结果.
-#### 2.3.2视图和控制器变量连结
+#### 2.4.2视图和控制器变量连结
 通过extract方法分配变量.
-### 2.4数据库示例
+### 2.5数据库示例
 
+### 2.6其他
+```php
+跳转:yii\helpers\Url::to(["site/index", "id" => 23, "#" => "content"],false); //index.php/site/index?id=23#content
+维护配置:'catchAll' => ['site/offline'],
+```
 
 ## 3.架构图
