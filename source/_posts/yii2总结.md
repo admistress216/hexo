@@ -3,11 +3,11 @@ title: yii2总结
 date: 2018-07-05 15:56:58
 tags:
 ---
-
 ## 1.应用的静态结构图和目录结构
 <img src="http://resource.cmdapps.com/2018/07/static_struct.png"/>
 <center>静态结构图</center>
 <img src="http://resource.cmdapps.com/2018/07/contents.png"/>
+
 <center>目录结构</center>
 
 ## 2.基础知识点
