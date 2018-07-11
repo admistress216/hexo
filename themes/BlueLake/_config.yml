@@ -134,3 +134,5 @@ links:
     url: http://www.mbalib.com/
   - title: nginx中文文档
     url: http://www.nginx.cn/doc/index.html
+  - title: beego
+    url: https://beego.me/docs/intro/
