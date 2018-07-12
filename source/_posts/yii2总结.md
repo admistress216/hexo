@@ -20,6 +20,16 @@ $headers = Yii::$app->request->headers; //获取头部
 $userHost = Yii::$app->request->userHost;
 $userIP = Yii::$app->request->userIP;
 ```
+
+### 2.2 响应
+```php
+$headers = Yii::$app->response->headers;
+$headers->add('Pragma', 'no-cache'); //添加响应头字段
+Yii::$app->response->redirect('http://www.baidu.com', 301)->send(); //跳转
+
+
+```
+
 ### 2.2控制器示例
 ```php
 namespace app\controllers;
@@ -82,7 +92,7 @@ class EntryForm extends Model
 
 ### 2.6其他
 ```php
-跳转:yii\helpers\Url::to(["site/index", "id" => 23, "#" => "content"],false); //index.php/site/index?id=23#content
+链接:yii\helpers\Url::to(["site/index", "id" => 23, "#" => "content"],false); //index.php/site/index?id=23#content
 维护配置:'catchAll' => ['site/offline'],
 ```
 
