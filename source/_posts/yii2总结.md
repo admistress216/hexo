@@ -88,8 +88,57 @@ class EntryForm extends Model
 用于调用控制器中render方法渲染内容视图后的结果.
 #### 2.4.2视图和控制器变量连结
 通过extract方法分配变量.
-### 2.5数据库示例
+### 2.5数据库
+数据库可连接mysql,mariadb,oracle,sqlight,sqlserver等
+```php
+//1.数据库配置
+'db' => [
+    'class' => 'yii\db\Connection',
+    'driverName' => 'mysql',
+    'dsn' => 'odbc:Driver={MySQL};Server=localhost;Database=test',
+    'username' => 'root',
+    'password' => '',
+],
 
+//2.在controller里创建数据库对象
+$db = new yii\db\Connection([
+    'dsn' => 'mysql:host=localhost;dbname=example',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
+]);
+/**
+ * 3.1纯sql查询,利用yii\db\Command
+ *
+ * 查询方法:
+ * queryAll():查询多行
+ * queryOne():查询单行
+ * queryColumn():查询单列
+ * queryScalar():查询标量,如count(1)等
+ *
+ */
+ //bindValue:
+$posts = Yii::$app->db->createCommand('SELECT * FROM post WHERE `status`=:status AND `type`=:type')
+        ->bindValue(':status', $_GET['status'])
+        ->bindValue(':type', 1)
+        ->queryAll();
+//bindValues:
+$params = [
+    ':status' => $_GET['status'],
+    ':type' => 1
+];
+$posts = Yii::$app->db->createCommand('SELECT * FROM post WHERE `status`=:status AND `type`=:type')
+        ->bindValues($params)
+        ->queryAll();
+
+/**
+ * 3.2纯sql非查询
+ *
+ * 执行方法:
+ * exec():
+ *
+ */
+```
 ### 2.6其他
 ```php
 链接:yii\helpers\Url::to(["site/index", "id" => 23, "#" => "content"],false); //index.php/site/index?id=23#content
