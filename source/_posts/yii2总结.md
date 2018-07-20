@@ -135,14 +135,73 @@ $posts = Yii::$app->db->createCommand('SELECT * FROM post WHERE `status`=:status
  * 3.2纯sql非查询
  *
  * 执行方法:
- * exec():
+ * execute():
  *
  */
+ // sql
+Yii::$app->db->createCommand('UPDATE post SET status=1 WHERE id=1')
+    ->execute();
+    
+// INSERT (table name, column values),
+//columns inserting use batchInsert
+Yii::$app->db->createCommand()->insert('user', [
+    'name' => 'Sam',
+    'age' => 30,
+])->execute();
+
+// UPDATE (table name, column values, condition)
+Yii::$app->db->createCommand()->update('user', ['status' => 1], 'age > 30')->execute();
+
+// DELETE (table name, condition)
+Yii::$app->db->createCommand()->delete('user', 'status = 0')->execute();
+
+//4.读写分离
+[
+    'class' => 'yii\db\Connection',
+
+    // 主库的配置
+    'dsn' => 'dsn for master server',
+    'username' => 'master',
+    'password' => '',
+
+    // 从库的通用配置
+    'slaveConfig' => [
+        'username' => 'slave',
+        'password' => '',
+        'attributes' => [
+            // 使用一个更小的连接超时
+            PDO::ATTR_TIMEOUT => 10,
+        ],
+    ],
+
+    // 从库的配置列表
+    'slaves' => [
+        ['dsn' => 'dsn for slave server 1'],
+        ['dsn' => 'dsn for slave server 2'],
+        ['dsn' => 'dsn for slave server 3'],
+        ['dsn' => 'dsn for slave server 4'],
+    ],
+]
+
+//5.查询构建器
+$rows = (new \yii\db\Query())
+    ->select(['id', 'email'])
+    ->from('user')
+    ->where(['last_name' => 'Smith'])
+    ->limit(10)
+    ->all();
+解释成:
+SELECT `id`, `email` 
+FROM `user`
+WHERE `last_name` = :last_name
+LIMIT 10
+
 ```
 ### 2.6其他
 ```php
 链接:yii\helpers\Url::to(["site/index", "id" => 23, "#" => "content"],false); //index.php/site/index?id=23#content
 维护配置:'catchAll' => ['site/offline'],
+mysql表前缀引用{{%tablename}}
 ```
 
 ## 3.架构图

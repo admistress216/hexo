@@ -23,6 +23,7 @@ type (
 #### 1.2类型转换
 ```php
 int(),float(),bool()
+[]byte() //字符串转[]byte
 ```
 
 #### 1.3常量与变量
@@ -58,7 +59,9 @@ bool:false
 声明:
 	var identifier map[keytype]valuetype
 例:
-	var mp1 map[string]int
+	var mp1 map[string]int //这种方式在使用时需make()
+	或者:
+	mp2 := map[string]float32{"C":5, "Go":4.5, "Python":4.5, "C++":2}
 <8>数组与切片[数组可以视为键为数字的map]:
 数组声明:
 	var identifier [len]type
@@ -123,4 +126,60 @@ bool:false
 		upPerson(pers3)
 		fmt.Printf("%s,%s",pers3.firstName, pers3.lastName)
 	}
+```
+
+#### 1.5byte和rune
+
+Go语言中byte和rune实质上就是uint8和int32类型。byte用来强调数据是raw data，而不是数字；而rune用来表示Unicode的code point。参考规范：
+> uint8       the set of all unsigned  8-bit integers (0 to 255)
+> int32       the set of all signed 32-bit integers (-2147483648 to 2147483647)
+> byte        alias for uint8
+> rune        alias for int32
+
+可以通过下面程序验证：
+
+```php
+package main
+
+import "fmt"
+
+func byteSlience(b []byte) []byte {
+	return b
+}
+
+func runeSlience(r []rune) []rune {
+	return r
+}
+type Color byte
+
+func main() {
+	b := []byte{0,1}
+	u8 := []uint8{2, 3}
+	fmt.Printf("%T,%T\n", b, u8)
+	fmt.Println(byteSlience(b))
+	fmt.Println(byteSlience(u8))
+
+	r := []rune{4,5}
+	i32 := []int32{6,7}
+	fmt.Printf("%T,%T\n", r, i32)
+	fmt.Println(runeSlience(r))
+	fmt.Println(runeSlience(i32))
+
+	c := Color(3)
+	fmt.Printf("%T\n", c)
+	fmt.Println(c)
+}
+```
+
+运行结果如下:
+
+```php
+[]uint8,[]uint8
+[0 1]
+[2 3]
+[]int32,[]int32
+[4 5]
+[6 7]
+main.Color
+3
 ```
