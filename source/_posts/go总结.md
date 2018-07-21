@@ -69,6 +69,10 @@ bool:false
 	var arr1 [5]int
 切片声明:
     var identifier []type
+例:
+    arr := [10]{1,2,3,4}
+    sli := [:] //取出所有值
+    或者: sli := []int{1,2,3,4}
 <9>结构体:
 声明:
 	type identifier struct {
