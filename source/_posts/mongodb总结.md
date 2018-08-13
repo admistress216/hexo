@@ -3,7 +3,7 @@ title: mongodb总结
 date: 2018-08-12 20:41:55
 tags:
 category: mongodb总结
-layout: page
+layout: post
 ---
 
 ### 1.简介
@@ -76,17 +76,26 @@ exit 退出mongoClient
 #### 5.2 DQL:
 ```php
 db.collectionName.count(): 统计条数
-db.collectionName.find(): 查看所有数据
+db.collectionName.find([query], [fields]).pretty(): 查看并美化所有数据
 db.collectionName.find({'a':'b'}): 条件查询
 db.collectionName.find({field:{$lt:ISODate('2018-08-05')}})[.count()]: 小于2018-08-05的数据[数量]
+例: db.collectionName.find({"age": {$lt:20}}) //查询条件,相当于select * from collectionName where age < 20
+db.collectionName.findOne([query], [fields], [options]): 查询一条,相当于select * from users limit 1
 
 ```
 
 #### 5.3 DML:
 ```php
-db.collectionName.insert(document): 插入数据
-db.collectionName.remove({'a':'b'}): 条件删除
-
+db.collectionName.insert([{'a': 'b', 'c': 'd'},{}]): 插入数据
+db.collectionName.insertOne(obj, <optional>): 插入单条
+db.collectionName.remove({query}, true): 条件删除[第一条数据]
+db.collectionName.remove({}): 清空集合中所有的文档
+db.collectionName.save(obj): 集合中不包含id或者id在表中不存在则插入,存在则更新(整体替换)
+db.collectionName.update(query, obj, upsert bool): upsert为true时,条件存在则更新,不存在则插入obj[此处不包括query插入]
+例子: 
+db.users.find() //{"_id": 5, "username": "test10"}
+db.users.update({"username":"test11"}, {"_id": 6, "age": 20, "gender": 1}, true)
+db.users.find() //{"_id": 5, "username": "test10"}, {"_id": 6, "age": 20, "gender": 1}
 ```
 
 #### 5.4 Help:
@@ -102,9 +111,42 @@ help misc: misc things to know
 help mr: mapreduce
 ```
 
+### 6.修改器,操作符
+```php
+$set（更新字段）
+$unset(删除字段)、
+$inc(自增或自减)
+$and、$or、$in、$nin、$nor、$exists（用于判断文档中是否包含某字段）
+$push(向数组中尾部添加一个元素)
+$pushAll(将数组中的所有值push)
+$addToSet（向set集合中添加元素）
+$pop(删除数组中的头部或尾部元素) 
+$pull(删除数组中指定的值)
+$size（根据数组的长度进行筛选）
+$slice(返回数组中部分元素，如前几个、后几个、中间连续几个元素)
+$elemMatch(用于匹配数组中的多个条件)
+$where(自定义筛选条件，效率比较低，需要将bson转为js对象，不能使用索引，可以先使用普通查询过滤掉部分不满足条件
+```
 
+### 7.索引
+```php
+db.collectionName.getIndexes(): 获取索引
+    [
+        {
+            "v" : 2,
+            "key" : {
+                "_id" : 1
+            },
+            "name" : "_id_",
+            "ns" : "h5maker.users"
+        }
+    ]
+db.collectionName.ensureIndex({field : 1}): //添加索引
+db.collectionName.dropIndexes(): 删除collectionName上所有的索引
+db.collectionName.dropIndexes({name: 1}): 删除collectionName上指定的索引
 
-
+```
+<center>未完待续.......</center>
 
 
 
