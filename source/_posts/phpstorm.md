@@ -9,7 +9,7 @@ categories: php总结
 
 ### 2. 常用快捷键
   
-编辑快捷键
+#### 编辑快捷键
   
 > command + / : 添加代码注释//
 > command + alt + / : 添加代码注释/* */
@@ -29,9 +29,10 @@ categories: php总结
 > control + `(反引号) : switcher1
 > control + tab : switch2
 > command + p : 参数提示
+> command + alt + l : 格式化代码
 
 
-导航快捷键:
+#### 导航快捷键:
   
 > command + o : 快速查找类
 > command + shift + o : 快速查找文件名
@@ -46,7 +47,7 @@ categories: php总结
 > command + f3 : 打开书签列表
 
 
-搜索和替换:
+#### 搜索和替换:
   
 > command + f : 当前文件搜索
 > command + shift + f : 按路径搜索
@@ -57,7 +58,7 @@ categories: php总结
 > command + g : 下一个
 > command + shift + g : 下一个
 
-全局快捷键:
+#### 全局快捷键:
   
 > 双击shift : 全局查找搜索
 > command + 1,2,3,4,5 : 打开各种工具窗口
