@@ -10,6 +10,10 @@ layout: page
 mongodb是nosql中的一款产品，属于文档型数据库，存储的是文档（Bson,json的二进制化），内部引擎由javascript实现，所有和node.js搭配使用有天然的优势。
 
 数据在存储时是以bson形式进行存储的，查询时数据转换为js对象，并可以通过js语法进行操作。
+注意事项:
+- MongoDB不支持事务和夺标连接将查询
+- MongoDB中键值对是有序的,相同的键值对,不同顺序,属于不同的文档
+- new Date(); 返回日期对象，属于日期类型，Date()函数返回日期字符串，在Shell中操作日期要使用日期类型， 日期类型是包含时区的
 
 ### 2.bin目录文件作用
 > bsondump: 导出bson结构（可视化转化）
@@ -40,9 +44,19 @@ mongodb是nosql中的一款产品，属于文档型数据库，存储的是文�
 > --journal 启用日志
 > --maxConns 最大连接并发数
 > --notablescan 不允许表扫描
+> /bin/mongo dbaddress --port 17720 --eval "db.shutdownServer()": 关闭服务
 
-### 4.相关命令
-#### 4.1 DDL:
+### 4.mongo参数说明
+> --port/host 连接端口/主机
+> --eval 解析javascript
+> --username 用户名
+> --password 密码
+> --quit be less chatty
+> --shell 运行完文件进入shell
+> 
+
+### 5.相关命令
+#### 5.1 DDL:
 ```php
 show dbs/databases: 显示数据库
 db.dropDatabase(): 删除所在数据库
@@ -53,17 +67,65 @@ db.version(): mongo版本
 db.hostInfo(): 获取mongo所在服务器主机信息
 db.createCollection(name, {size, capped, max}): 创建表
 db.collectionName.drop(): 删除表
+db.listCommands(): 列出数据库命令
+print("hello"): 打印语句
+exit 退出mongoClient
+
 ```
 
-#### 4.2 DQL:
+#### 5.2 DQL:
 ```php
 db.collectionName.count(): 统计条数
+db.collectionName.find(): 查看所有数据
+db.collectionName.find({'a':'b'}): 条件查询
+db.collectionName.find({field:{$lt:ISODate('2018-08-05')}})[.count()]: 小于2018-08-05的数据[数量]
 
 ```
 
-#### 4.3 DML:
+#### 5.3 DML:
 ```php
 db.collectionName.insert(document): 插入数据
-
+db.collectionName.remove({'a':'b'}): 条件删除
 
 ```
+
+#### 5.4 Help:
+```php
+db.help(): help on db methods
+db.collectionName.help(): help on collection methods
+sh.help(): sharding helpers
+rs.help(): replica set helpers
+help admin: administrative help
+help connect: connecting to a db help
+help keys: key shortcuts
+help misc: misc things to know
+help mr: mapreduce
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
