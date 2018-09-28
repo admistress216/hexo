@@ -134,3 +134,11 @@ $user->user_name = 'wangwu';
 $user->update(); //更新
 //禁用updated_at字段
 public $timestamps = false;
+
+### 7.清除缓存
+#### 7.1 清除视图缓存
+php artisan view:clear
+#### 7.2 清除运行缓存
+php artisan cache:clear
+#### 7.3 清除配置缓存
+php artisan config:clear
