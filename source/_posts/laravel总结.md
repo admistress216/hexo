@@ -123,6 +123,7 @@ dd($users);
 ```
 
 ### 6.模型
+```php
 //新建
 php artisan make:model User
 //模型中配置表和主键
@@ -134,6 +135,59 @@ $user->user_name = 'wangwu';
 $user->update(); //更新
 //禁用updated_at字段
 public $timestamps = false;
+//非递增主键
+public $incrementing = false;
+//主键为字符串而非int型
+protected $keyType = string;
+//禁用updated_at,created_at字段
+public $timestamps = false;
+//自定义时间戳
+const CREATED_AT = 'creation_data';
+const UPDATED_AT = 'last_update';
+
+//可以被批量赋值的属性,只有批量赋值的属性才可通过create()添加数据
+protected $fillable = ['name']; //允许name属性可以批量赋值
+//不可以批量赋值的属性
+protected $guarded = ['price'];
+$flight = Flight::create(['name' => 'Flight 10']);
+//已有模型
+$flight->fill(['name' => 'Flight 22']);
+
+$user = User::all(); //返回模型表中所有的结果
+
+$user = User::where('active', 1)
+              ->orderBy('name', 'desc')
+              ->take(10)  //take相当于limit,skip相当于offset
+              ->get();
+
+$user = User::where('active', 1)->first(); //first相当于find
+$user = User::find([1,2,3]);
+
+//聚合函数
+$count = User::where('active', 1)->count();
+$price = User::where('active', 1)->max('price');
+
+//插入
+$user = new User;
+$user->name = $name;
+$user->save();
+
+//更新
+$flight = Flight::find(1);
+$flight->name = 'New';
+$flight->save();
+Flight::where('active', 1)
+   ->where('destination', 'San Diego')
+   ->update(['delay' => 1]); //需要传入键值对数组
+
+//删除
+$flight = Flight::find(1);
+$flight->delete();
+Flight::destroy(1,2,3);
+Flight::destroy([1,2,3]);
+$deletedRows = Flight::where('active', 0)->delete();
+```
+
 
 ### 7.清除缓存
 #### 7.1 清除视图缓存
