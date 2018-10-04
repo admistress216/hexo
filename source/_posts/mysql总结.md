@@ -488,4 +488,5 @@ $db['log'] = array(
     'char_set' => 'utf8',
     'dbcollat' => 'utf8_general_ci',
 );
+
 ```
