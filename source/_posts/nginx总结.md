@@ -113,7 +113,7 @@ http {
 
 #### 5.2 vhost文件夹下server.conf
 ```php
-erver {
+server {
         listen       80;
         server_name  localhost;
 
