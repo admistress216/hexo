@@ -124,6 +124,9 @@ dd($users);
 
 ### 6.模型
 ```php
+//接收数据
+/$input = Input::all();
+
 //新建
 php artisan make:model User
 //模型中配置表和主键
@@ -196,3 +199,18 @@ php artisan view:clear
 php artisan cache:clear
 #### 7.3 清除配置缓存
 php artisan config:clear
+
+### 8.方法
+//引入静态文件
+asset()
+//引入地址
+url()
+//返回到前一个页面
+back()
+//参数传递
+with()
+//加解密
+Crypt::encrypt($str)
+Crypt::decrypt($str)
+//重定向
+redirect($url);
