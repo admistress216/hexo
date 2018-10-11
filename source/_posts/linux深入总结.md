@@ -67,4 +67,68 @@ echo $SHELL: 查看当前使用shell
 cat /etc/shells: 查看系统支持shell
 type command: 区别内部或外部命令
 
+#### 9.1 hash命令
+hash: 缓存使用的命令路径于hash表,提高命令的调用速率
+hash [-l]: 显示hash表内的内容
+hash (-d name)/-r: 清除单个/全部缓存命令
+注:
+在命令已缓存的情况下,移动命令路径,会出现找不到命令的错误(即使命令在path中),解决方法: 重新登录终端或者删除缓存命令
+
+#### 9.2 帮助命令
+```php
+# 内部命令
+help command
+
+# 外部命令
+<1> command --help/-h
+<2> 使用手册: man command
+<3> 信息页: info command
+<4> 程序自身帮助文档(一般在/usr/share/doc/COMMAND-VERSION): README,INSTALL,ChangeLog
+<5> 程序官方文档(Documentation)
+<6> 发行版的官方文档(http://www.redhat.com/docs)
+<7> google.cn
+    (openstack filetype:pdf):搜索全部为pdf格式的openstack
+    (openstack site:openstack.com):指明站点搜索
+<8>(http://www.slideshare.net):pdf/ppt教程
+```
+
+#### 9.3 man帮助详解
+```php
+man COMMAND
+
+// 手册页所在位置
+/usr/share/man(大多数手册,具体位置在/etc/man.config中的MANPATH定义)
+
+// man1.....man8介绍
+man1: 用户命令
+man2: 系统调用
+man3: C库调用
+man4: 设备文件及特殊文件
+man5: 配置文件格式
+man6: 游戏
+man7: 杂项
+man8: 管理类命令
+
+man -M path command   //在指定目录下查找命令,如果目录为空,效果和没有-M参数一样
+
+//man命令段落说明
+SYNOPSIS(概要):
+    []: 可选内容
+    <>:必选内容
+    a|b:二选一
+    ...:同一内容可多次出现
+```
+- 注意:有些命令在不知一个章节中存放帮助手册(whereis read),要查看指定章节中的手册: man # command
+
+#### 9.4 history命令
+```php
+# 命令文件存放于~/.bash_history中,history命令显示的记录(cache中)会在logout时写入~/.bash_history
+history -a: 将缓存中的命令追加于文件中
+history -d offset: 删除offset处的命令(cache中)
+history -c: 删除所有(cache中)
+
+!#: 调用历史中第#条命令
+!command: 调用历史中以command开始的命令
+```
+
 

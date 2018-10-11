@@ -214,3 +214,42 @@ Crypt::encrypt($str)
 Crypt::decrypt($str)
 //重定向
 redirect($url);
+
+### 9.request
+
+```php
+/**
+*基于Illuminate\Http\Request
+*/
+//获取所有参数并放于数组中
+$request->all();
+//获取相应字段,get,post等均可
+$request->input('name', 'lizengcai'); //第二个参数用于默认值
+$request->input('products.*.name');  //获取数组的值
+$request->has('name');  //数据存在返回true
+$request->only(['name', 'post']);
+$request->except('name');  //接收部分参数,参数可以为数组或字符串
+
+//路由参数接收
+	$api->post('test/{id}', [ //路由
+                'as' => 'test.index',
+                'uses' => 'TestController@index',
+        ]);
+	public function test(Request $request, $id){}	//controller方法
+
+//以http://laravel_api.com/api/test/3?b=c为例
+//返回请求的uri
+$uri = $request->path();  //  /api/test/3
+//对uri进行匹配
+$request->is('api/*');   //  true
+
+//完整网址
+$url = $request->url();   //  http://laravel_api.com/api/test/3
+$fullUrl = $request->fullUrl();   //http://laravel_api.com/api/test/3?b=c
+
+//方法
+$method = $request->method();    //post
+$request->isMethod('post');    //true
+
+
+```
