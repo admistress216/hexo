@@ -48,21 +48,78 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 Route::resource('article', 'Admin\ArticleController');
 ```
 
-### 3.中间件(路由前过滤作用)
+### 3.中间件(请求之前/之后对数据进行过滤)
+#### 3.1 中间件位置及创建
 ```php
-//命令生成中间件,在app/Http/Middleware中生成AdminLogin.php中间件文件
-php artisan make:middleware AdminLogin
+app/Http/Middleware  //位置
+php artisan make:middleware CheckAge //生成app/Http/Middleware/CheckAge.php中间件
+```
+#### 3.2 定义中间件规则
+仅允许提供的参数 age 大于 200 的请求访问该路由。否则，我们会将用户重定向到 home 。
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class CheckAge
+{
+    /**
+     * 处理传入的请求
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if ($request->age <= 200) {
+            return redirect('home');
+        }
+
+        return $next($request);
+    }
+
+}
+```
+
+#### 3.3 注册中间件
+```php
 //App\Http\Kernel中追加:
-protected $routeMiddleware = [
-        'admin.login' => \App\Http\Middleware\AdminLogin::class,
+
+protected $middleware = [
+        \App\Http\Middleware\CheckAge::class, //注册全局中间件
+    ];
+
+protected $routeMiddleware = [  //注册路由中间件
+        'age.check' => \App\Http\Middleware\CheckAge::class,
 ];
-//路由中使用:
-Route::group(['middleware' => ['admin.login']], function(){
+```
+
+#### 3.4 路由中使用
+```php
+Route::group(['middleware' => ['age.check']], function(){
     Route::get('/', function () {
         session(['key' => 123]);
         return view('welcome');
     });
 });
+```
+
+为路由配置多个中间件
+```php
+Route::get('/', function () {
+    //
+})->middleware('first', 'second');
+```
+分配中间件时，你还可以传递完整的类名：
+```php
+use App\Http\Middleware\CheckAge;
+
+Route::get('admin/profile', function () {
+    //
+})->middleware(CheckAge::class);
 ```
 
 ### 4.视图
@@ -252,4 +309,59 @@ $method = $request->method();    //post
 $request->isMethod('post');    //true
 
 
+```
+
+### 10.Eloquent orm
+```php
+php artisan make:model User; //新建模型
+
+protected $table = 'my_users'; //模型中定义表(默认为模型小写复数)
+protected $primaryKey = 'user_id'; //定义主键(默认为id)
+protected $connection = 'mysql2'; // 在config/database.php中设定
+public $timestamps = false;  // 数据表中不设置updated_at和created_at字段
+protected $fillable = ['first_name', 'last_name', 'email'];  //批量赋值白名单
+protected $guarded = ['id', 'password'];  //批量赋值黑名单,*为阻止所有
+
+/**
+ *查询相关
+ */
+$users = User::all();  //取出所有数据
+$user = User::find(1);  //去除一条 $user->name;
+$user = User:findOrFail(1); //是否存在id为1的记录,可定义异常
+$users = User::where('id', '>', 10)->firstOrFail(); //是否存在一条,存在则取出,可定义异常
+$users = User::where('id', '>', 1)->take(10)->get(); //结合条件查询,id大于1的记录取出10条,where和get()搭配使用
+$count = User::where('id', '>', 1)->count();  //统计条数
+$users = User::whereRaw('age > ? and votes = 100', [25])->get();
+$user = User::on('connection-name')->find(1); //指定数据库
+
+/**
+ * 新增
+ */
+$user = new User;
+$user->name = 'John';
+$user->save(); //新增或存储(create)
+$insertedId = $user->id; //新增或存储的id
+$user = User::create(['name' => 'John']);  //在数据库中建立一个新用户
+$user = User::firstOrCreate(['name' => 'John']);  // 以属性找用户，若没有则新增并取得新的实例...
+$user = User::firstOrNew(['name' => 'John']);  // 以属性找用户，若没有则建立新的实例...
+
+/**
+ * 更新,删除
+ */
+$user = User::find(1);
+$user->email = 'john@foo.com';
+$user->save();  //更新取出的模型
+$affectedRows = User::where('votes', '>', 100)->update(['status' => 2]); //您可以结合查询语句，批次更新模型：
+
+/**
+ * 删除
+ */
+ $user = User::find(1);
+ $user->delete();
+ 
+ User::destroy(1);
+ User::destroy([1, 2, 3]);
+ User::destroy(1, 2, 3); //根据主键值删除
+ 
+ $affectedRows = User::where('votes', '>', 100)->delete(); //批次删除
 ```
