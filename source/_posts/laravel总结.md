@@ -107,19 +107,67 @@ Route::group(['middleware' => ['age.check']], function(){
 });
 ```
 
-为路由配置多个中间件
+- 为路由配置多个中间件
 ```php
 Route::get('/', function () {
     //
 })->middleware('first', 'second');
 ```
-分配中间件时，你还可以传递完整的类名：
+- 分配中间件时，你还可以传递完整的类名：
 ```php
 use App\Http\Middleware\CheckAge;
 
 Route::get('admin/profile', function () {
     //
 })->middleware(CheckAge::class);
+```
+- 中间件组: 中间件组只是更方便地实现了一次为路由分配多个中间件
+```php
+Route::get('/', function () {
+    //
+})->middleware('web');
+
+Route::group(['middleware' => ['web']], function () {
+    //
+});
+```
+> 注:web中间件会自动应用于routes/web.php
+
+#### 3.5 中间件参数
+- 通过$next之后传递参数
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+
+class CheckAge
+{
+    /**
+     * 处理传入的请求
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next, $role)
+    {
+        if ($request->age <= 200) {
+            echo '年轻'."<br>";
+            echo $role;
+        }
+
+        return $next($request);
+    }
+
+}
+```
+- 定义路由时通过一个 : 来隔开中间件名称和参数来指定中间件参数。多个参数就使用逗号分隔：
+```php
+Route::put('/index', function ($id) {
+    //
+})->middleware('age.check:editor');
 ```
 
 ### 4.视图
@@ -179,73 +227,102 @@ $users = DB::table('user')->where('user_id', '>', 1)->get();
 dd($users);
 ```
 
-### 6.模型
+### 6.用户认证系统
+#### 6.1 数据导入与创建路由,视图和HomeController
 ```php
-//接收数据
-/$input = Input::all();
+php artisan migrate //数据导入
+php artisan make:auth //生成身份认证的路由,视图(resources/views/auth下)和HomeController
+```
 
-//新建
-php artisan make:model User
-//模型中配置表和主键
-protected $table = "user";
-protected $primaryKey = 'user_id';
-//控制器中使用模型
-$user = User::find(1);
-$user->user_name = 'wangwu';
-$user->update(); //更新
-//禁用updated_at字段
-public $timestamps = false;
-//非递增主键
-public $incrementing = false;
-//主键为字符串而非int型
-protected $keyType = string;
-//禁用updated_at,created_at字段
-public $timestamps = false;
-//自定义时间戳
-const CREATED_AT = 'creation_data';
-const UPDATED_AT = 'last_update';
+#### 6.2 自定义跳转路径
+- 你可以通过在 LoginController、RegisterController 和 ResetPasswordController中设置 redirectTo 属性来自定义重定向的位置：
+```php
+protected $redirectTo = '/';
 
-//可以被批量赋值的属性,只有批量赋值的属性才可通过create()添加数据
-protected $fillable = ['name']; //允许name属性可以批量赋值
-//不可以批量赋值的属性
-protected $guarded = ['price'];
-$flight = Flight::create(['name' => 'Flight 10']);
-//已有模型
-$flight->fill(['name' => 'Flight 22']);
+//自定义逻辑
+protected function redirectTo()
+{
+    return '/path';
+}
+```
+> 注: 方法优先于属性
 
-$user = User::all(); //返回模型表中所有的结果
+#### 6.3 自定义认证用户名(LoginController)
+```php
+    public function username() {  //默认为email
+        return 'email';
+    }
+```
 
-$user = User::where('active', 1)
-              ->orderBy('name', 'desc')
-              ->take(10)  //take相当于limit,skip相当于offset
-              ->get();
+#### 6.4 自定义看守器(暂无)
 
-$user = User::where('active', 1)->first(); //first相当于find
-$user = User::find([1,2,3]);
+#### 6.5 检索已认证用户信息
+- 方式一:
+```php
+use Illuminate\Support\Facades\Auth;
 
-//聚合函数
-$count = User::where('active', 1)->count();
-$price = User::where('active', 1)->max('price');
+$user = Auth::user();  //获取当前已认证用户信息
+$id = Auth::id();  //获取认证id
+```
+- 方式二:
+```php
+use Illuminate\Http\Request;
 
-//插入
-$user = new User;
-$user->name = $name;
-$user->save();
+public function index(Request $request) {
+    $user = $request->user();  //只有获取user信息的,没有获取id方法
+}
+```
 
-//更新
-$flight = Flight::find(1);
-$flight->name = 'New';
-$flight->save();
-Flight::where('active', 1)
-   ->where('destination', 'San Diego')
-   ->update(['delay' => 1]); //需要传入键值对数组
+#### 6.6 确认用户是否认证(认证返回true)
+```php
+use Illuminate\Support\Facades\Auth;
 
-//删除
-$flight = Flight::find(1);
-$flight->delete();
-Flight::destroy(1,2,3);
-Flight::destroy([1,2,3]);
-$deletedRows = Flight::where('active', 0)->delete();
+if (Auth::check()) {
+    // 用户已登录...
+}
+```
+
+#### 6.7 别名
+- 别名的定义
+```php
+//位置: /config/app.php
+'aliases' => [
+        'Auth' => Illuminate\Support\Facades\Auth::class,
+    ],
+```
+- 别名的使用
+```php
+//控制器中
+use Auth;  //不用写全命名空间
+```
+
+#### 6.8 路由保护
+> 路由中间件 用于只允许通过认证的用户访问指定的路由
+> Laravel 自带了在 Illuminate\Auth\Middleware\Authenticate 中定义的 auth 中间件。
+> 由于这个中间件已经在 HTTP 内核中注册(App\Http\Kernel中路由中间件)，所以只需要将中间件附加到路由定义中
+
+- 路由中添加:
+```php
+Route::get('profile', function () {
+    // 只有认证过的用户可以...
+})->middleware('auth');
+```
+- 控制器中添加:
+```php
+public function __construct()
+{
+    $this->middleware('auth');
+}
+```
+> 将 auth 中间件添加到路由时，还需要指定使用哪个看守器来认证用户。
+> 指定的看守器对应配置文件 auth.php 中 guards 数组的某个键：
+
+- 指定看守器:
+```php
+public function __construct()
+{
+    $this->middleware('auth:api');
+}
 ```
 
 
@@ -275,6 +352,9 @@ redirect($url);
 ### 9.request
 
 ```php
+//接收数据
+/$input = Input::all();
+
 /**
 *基于Illuminate\Http\Request
 */
@@ -295,7 +375,7 @@ $request->except('name');  //接收部分参数,参数可以为数组或字符�
 	public function test(Request $request, $id){}	//controller方法
 
 //以http://laravel_api.com/api/test/3?b=c为例
-//返回请求的uri
+//返回请求的uri 
 $uri = $request->path();  //  /api/test/3
 //对uri进行匹配
 $request->is('api/*');   //  true
@@ -315,24 +395,42 @@ $request->isMethod('post');    //true
 ```php
 php artisan make:model User; //新建模型
 
-protected $table = 'my_users'; //模型中定义表(默认为模型小写复数)
-protected $primaryKey = 'user_id'; //定义主键(默认为id)
+protected $table = 'my_users'; //模型中定义表(默认表为模型小写复数)
+protected $primaryKey = 'user_id'; //定义主键(默认主键为id)
 protected $connection = 'mysql2'; // 在config/database.php中设定
 public $timestamps = false;  // 数据表中不设置updated_at和created_at字段
+//可以被批量赋值的属性,只有批量赋值的属性才可通过create()添加数据
 protected $fillable = ['first_name', 'last_name', 'email'];  //批量赋值白名单
+$flight = Flight::create(['first_name' => 'Flight 10']);  //允许first_name赋值
 protected $guarded = ['id', 'password'];  //批量赋值黑名单,*为阻止所有
+public $incrementing = false;  //非递增主键
+protected $keyType = string;  //主键为字符串而非int型
+const CREATED_AT = 'creation_data';  //自定义时间戳
+const UPDATED_AT = 'last_update';  //自定义时间戳
 
 /**
  *查询相关
  */
 $users = User::all();  //取出所有数据
 $user = User::find(1);  //去除一条 $user->name;
+$user = User::where('active', 1)->first(); //first相当于find
+$user = User::find([1,2,3]);
 $user = User:findOrFail(1); //是否存在id为1的记录,可定义异常
 $users = User::where('id', '>', 10)->firstOrFail(); //是否存在一条,存在则取出,可定义异常
 $users = User::where('id', '>', 1)->take(10)->get(); //结合条件查询,id大于1的记录取出10条,where和get()搭配使用
 $count = User::where('id', '>', 1)->count();  //统计条数
 $users = User::whereRaw('age > ? and votes = 100', [25])->get();
 $user = User::on('connection-name')->find(1); //指定数据库
+$user = User::where('active', 1)
+              ->orderBy('name', 'desc')
+              ->take(10)  //take相当于limit,skip相当于offset
+              ->get();
+              
+/**
+ *聚合函数
+ */
+ $count = User::where('active', 1)->count();
+ $price = User::where('active', 1)->max('price');
 
 /**
  * 新增
@@ -344,6 +442,8 @@ $insertedId = $user->id; //新增或存储的id
 $user = User::create(['name' => 'John']);  //在数据库中建立一个新用户
 $user = User::firstOrCreate(['name' => 'John']);  // 以属性找用户，若没有则新增并取得新的实例...
 $user = User::firstOrNew(['name' => 'John']);  // 以属性找用户，若没有则建立新的实例...
+//已有模型
+$flight->fill(['name' => 'Flight 22']);
 
 /**
  * 更新,删除

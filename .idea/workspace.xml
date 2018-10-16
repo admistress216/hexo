@@ -2,39 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="514dd574-fa65-4d42-b833-d489e4323cd0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/composer总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/dingo总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/go总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/go深入.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/hadoop总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/jira破解.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/js总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/laravel总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/linux命令总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/linux深入总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/memcache扩展.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/mongodb总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/mysql总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/mysql问答.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/nginx总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/php-fpm总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/phpstorm.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/phpunit使用总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/psr相关机制总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/redis总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/uml教程.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/vim总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/yii2总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/优雅的写php代码.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/各类数据表.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/开发文档模板.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/我的小可可.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/明朝那些事-总结.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/混淆概念解释.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/计划及进度.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/读别让别人抢走你的时间有感.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_draft/马克飞象.md" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/_posts/laravel总结.md" afterPath="$PROJECT_DIR$/source/_posts/laravel总结.md" />
     </list>
     <ignored path="hexo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,6 +25,17 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="api接口定义.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/_posts/api接口定义.md">
+          <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="0">
+                <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor>
+                <js_state />
+              </second_editor>
+            </state>
+          </provider>
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
               <first_editor relative-caret-position="180">
@@ -66,54 +45,62 @@
               <second_editor />
             </state>
           </provider>
-          <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="0">
-                <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor>
-                <js_state />
-              </second_editor>
-            </state>
-          </provider>
         </entry>
       </file>
       <file leaf-file-name="laravel总结.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/_posts/laravel总结.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="870">
-                <caret line="102" column="33" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
           <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="0">
                 <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                <folding />
+                <folding>
+                  <marker date="1539683161000" expanded="true" signature="1603:1928" ph="{...}" />
+                  <marker date="1539683161000" expanded="true" signature="1613:1743" ph=" 处理传入的请求 ..." />
+                  <marker date="1539683161000" expanded="true" signature="1797:1925" ph="{...}" />
+                  <marker date="1539683161000" expanded="true" signature="1839:1885" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2674:2701" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2692:2700" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2715:2720" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2737:2786" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2777:2785" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2930:3279" ph="{...}" />
+                  <marker date="1539683161000" expanded="true" signature="2940:3070" ph=" 处理传入的请求 ..." />
+                  <marker date="1539683161000" expanded="true" signature="3131:3276" ph="{...}" />
+                  <marker date="1539683161000" expanded="true" signature="3173:3236" ph="..." />
+                </folding>
               </first_editor>
               <second_editor>
                 <js_state />
               </second_editor>
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="405">
+                <caret line="314" column="1" selection-start-line="314" selection-start-column="1" selection-end-line="314" selection-end-column="1" />
+                <folding>
+                  <marker date="1539683161000" expanded="true" signature="1603:1928" ph="{...}" />
+                  <marker date="1539683161000" expanded="true" signature="1613:1743" ph=" 处理传入的请求 ..." />
+                  <marker date="1539683161000" expanded="true" signature="1797:1925" ph="{...}" />
+                  <marker date="1539683161000" expanded="true" signature="1839:1885" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2674:2701" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2692:2700" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2715:2720" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2737:2786" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2777:2785" ph="..." />
+                  <marker date="1539683161000" expanded="true" signature="2930:3279" ph="{...}" />
+                  <marker date="1539683161000" expanded="true" signature="2940:3070" ph=" 处理传入的请求 ..." />
+                  <marker date="1539683161000" expanded="true" signature="3131:3276" ph="{...}" />
+                  <marker date="1539683161000" expanded="true" signature="3173:3236" ph="..." />
+                </folding>
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="jwt总结.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/_posts/jwt总结.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="597">
-                <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
           <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="0">
@@ -123,6 +110,15 @@
               <second_editor>
                 <js_state />
               </second_editor>
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="1035">
+                <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -155,10 +151,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="47" />
-    <option name="y" value="23" />
-    <option name="width" value="1393" />
-    <option name="height" value="877" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -246,6 +240,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -317,17 +312,18 @@
       <workItem from="1539144662216" duration="89000" />
       <workItem from="1539153790585" duration="15200000" />
       <workItem from="1539313691095" duration="21044000" />
+      <workItem from="1539657545682" duration="8857000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41687000" />
+    <option name="totallyTimeSpent" value="50544000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="23" width="1393" height="877" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20133235" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19670959" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -385,60 +381,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/_draft/laravel总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="225">
-            <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="120">
-            <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/linux深入总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/_posts/api接口定义.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="1500">
-            <caret line="100" column="106" selection-start-line="100" selection-start-column="106" selection-end-line="100" selection-end-column="106" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
       <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
@@ -450,273 +393,6 @@
           </second_editor>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/nginx总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="165">
-            <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="15">
-            <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/laravel总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="315">
-            <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="168">
-            <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/nginx总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="231">
-            <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="21">
-            <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/laravel总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="4137">
-            <caret line="197" column="24" selection-start-line="197" selection-start-column="24" selection-end-line="197" selection-end-column="24" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="168">
-            <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/nginx总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="126">
-            <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_posts/.laravel总结.md.swp" />
-    <entry file="file://$PROJECT_DIR$/source/_draft/nginx总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="165">
-            <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="15">
-            <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/laravel总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="225">
-            <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="120">
-            <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/linux深入总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="252">
-            <caret line="95" column="6" selection-start-line="95" selection-start-column="6" selection-end-line="95" selection-end-column="6" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/jira破解.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="60">
-            <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/composer总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="270">
-            <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/phpunit使用总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="60">
-            <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_draft/psr相关机制总结.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="4590">
-            <caret line="306" column="30" selection-start-line="306" selection-start-column="30" selection-end-line="306" selection-end-column="30" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_posts/api接口定义.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="180">
@@ -726,6 +402,58 @@
           <second_editor />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_posts/laravel总结.md">
+      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding>
+              <marker date="1539683161000" expanded="true" signature="1603:1928" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="1613:1743" ph=" 处理传入的请求 ..." />
+              <marker date="1539683161000" expanded="true" signature="1797:1925" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="1839:1885" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2674:2701" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2692:2700" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2715:2720" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2737:2786" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2777:2785" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2930:3279" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="2940:3070" ph=" 处理传入的请求 ..." />
+              <marker date="1539683161000" expanded="true" signature="3131:3276" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="3173:3236" ph="..." />
+            </folding>
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding>
+              <marker date="1539683161000" expanded="true" signature="1603:1928" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="1613:1743" ph=" 处理传入的请求 ..." />
+              <marker date="1539683161000" expanded="true" signature="1797:1925" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="1839:1885" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2674:2701" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2692:2700" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2715:2720" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2737:2786" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2777:2785" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2930:3279" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="2940:3070" ph=" 处理传入的请求 ..." />
+              <marker date="1539683161000" expanded="true" signature="3131:3276" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="3173:3236" ph="..." />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_posts/jwt总结.md">
       <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
@@ -737,17 +465,19 @@
           </second_editor>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_posts/jwt总结.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="597">
+          <first_editor relative-caret-position="1035">
             <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_draft/laravel总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/linux深入总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_posts/api接口定义.md">
       <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
@@ -759,36 +489,120 @@
           </second_editor>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_posts/laravel总结.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="870">
-            <caret line="102" column="33" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
-            <folding>
-              <marker date="1539598017000" expanded="true" signature="1603:1928" ph="{...}" />
-              <marker date="1539598017000" expanded="true" signature="1613:1743" ph=" 处理传入的请求 ..." />
-              <marker date="1539598017000" expanded="true" signature="1797:1925" ph="{...}" />
-              <marker date="1539598017000" expanded="true" signature="1839:1885" ph="..." />
-            </folding>
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="1500">
+            <caret line="100" column="106" selection-start-line="100" selection-start-column="106" selection-end-line="100" selection-end-column="106" />
+            <folding />
           </first_editor>
           <second_editor />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_draft/nginx总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/laravel总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/nginx总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/laravel总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/nginx总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_posts/.laravel总结.md.swp" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/nginx总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/laravel总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/linux深入总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/jira破解.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/composer总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/phpunit使用总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_draft/psr相关机制总结.md" />
+    <entry file="file://$PROJECT_DIR$/source/_posts/api接口定义.md">
+      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="180">
+            <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_posts/jwt总结.md">
+      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1035">
+            <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_posts/laravel总结.md">
       <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
             <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
             <folding>
-              <marker date="1539598017000" expanded="true" signature="1603:1928" ph="{...}" />
-              <marker date="1539598017000" expanded="true" signature="1613:1743" ph=" 处理传入的请求 ..." />
-              <marker date="1539598017000" expanded="true" signature="1797:1925" ph="{...}" />
-              <marker date="1539598017000" expanded="true" signature="1839:1885" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="1603:1928" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="1613:1743" ph=" 处理传入的请求 ..." />
+              <marker date="1539683161000" expanded="true" signature="1797:1925" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="1839:1885" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2674:2701" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2692:2700" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2715:2720" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2737:2786" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2777:2785" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2930:3279" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="2940:3070" ph=" 处理传入的请求 ..." />
+              <marker date="1539683161000" expanded="true" signature="3131:3276" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="3173:3236" ph="..." />
             </folding>
           </first_editor>
           <second_editor>
             <js_state />
           </second_editor>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="405">
+            <caret line="314" column="1" selection-start-line="314" selection-start-column="1" selection-end-line="314" selection-end-column="1" />
+            <folding>
+              <marker date="1539683161000" expanded="true" signature="1603:1928" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="1613:1743" ph=" 处理传入的请求 ..." />
+              <marker date="1539683161000" expanded="true" signature="1797:1925" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="1839:1885" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2674:2701" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2692:2700" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2715:2720" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2737:2786" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2777:2785" ph="..." />
+              <marker date="1539683161000" expanded="true" signature="2930:3279" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="2940:3070" ph=" 处理传入的请求 ..." />
+              <marker date="1539683161000" expanded="true" signature="3131:3276" ph="{...}" />
+              <marker date="1539683161000" expanded="true" signature="3173:3236" ph="..." />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
