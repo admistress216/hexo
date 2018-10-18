@@ -324,6 +324,82 @@ public function __construct()
     $this->middleware('auth:api');
 }
 ```
+- 频路限制
+```php
+Route::get('/api/users', ['middleware' => 'throttle:60,1'], function(){  //限制某个 IP 地址每分钟只能访问某个路由 60 次
+    //
+});
+```
+#### 6.9手动认证用户等相关操作
+- 认证用户:
+> 不采用laravel内置的认证控制器,直接调用laravel的认证类来认证(Illuminate\Support\Facades\Auth)
+> 代码中的email字段为用户名,可为其他字段,attempt()方法,接收数组,认证成功则返回true,失败则返回false
+> redirect('home')和redirect()->intended('home')作用一样(都有return)
+
+```php
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
+
+class LoginController extends Controller
+{
+    /**
+     * 处理身份认证尝试.
+     *
+     * @return Response
+     */
+    public function authenticate()
+    {
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            // 认证通过...
+            return redirect()->intended('dashboard');
+        }
+    }
+}
+```
+
+- 注销用户
+```php
+Auth::logout();
+```
+
+- 访问指定的看守器实例
+> 可以通过 Auth facade 的 guard 方法来指定要使用哪个看守器实例。这允许你使用完全独立的可认证模型或用户表来管理应用的抽离出来的身份验证。
+> 传递给 guard 方法的看守器名称应该与 auth.php 配置文件中 guards 中的其中一个值相对应：
+
+```php
+if (Auth::guard('api')->attempt($credentials)){
+
+}
+```
+- 看守器详解:
+```
+'guards' => [
+    'api' => [
+        'driver' => 'jwt',  //看守器驱动,可自定义(session,token,jwt)
+        'provider' => 'users',  //所使用的提供器名称
+    ],
+],
+```
+
+- 提供器详解:
+```
+'providers' => [
+        'users' => [                       //提供器名称
+            'driver' => 'eloquent',       //驱动
+            'model' => App\User::class,  //使用的模型或表名
+        ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
+    ],
+```
+
+- HTTP基础认证
+暂时不用
+
 
 
 ### 7.清除缓存
