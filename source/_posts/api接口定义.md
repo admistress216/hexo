@@ -5,18 +5,21 @@ tags:
 ---
 ### 1. REST API
 ```php
-Method          URI                     Action      Comment
-post            api/login               store       登录
-post            api/logout              logout      退出登录
+Method          URI                             Comment
+post            api/login                       登录
+post            api/logout                      退出登录
 
-get             api/users               index       获取用户列表
-get             api/users/{userid}      show        获取单个用户信息
-get             api/users/{userid}/edit edit        编辑用户
-put             api/users/{userid}      update      更新用户
-delete          api/users/{userid}      destroy     删除用户
+get             api/users                       获取用户列表
+get             api/users/{userid}              获取单个用户信息
+get             api/users/{userid}/edit         编辑用户
+put             api/users/{userid}              更新用户
+delete          api/users/{userid}              删除用户
+
+get             api/rolepriv/{userid}/edit      角色权限展示
+put             api/rolepriv/{userid}           更新角色权限
 ```
 
-### 2. API详情
+### 2. 登录相关API
 
 #### 2.1 登录
 > Method: post
@@ -45,7 +48,8 @@ delete          api/users/{userid}      destroy     删除用户
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
 
-#### 2.3 获取单个用户信息
+### 3. 用户相关API
+#### 3.1 获取单个用户信息
 > Method: get
 > URI: api/users/{userid}
 
@@ -69,7 +73,7 @@ delete          api/users/{userid}      destroy     删除用户
 
 
 
-#### 2.4 编辑用户信息
+#### 3.2 编辑用户信息
 > Method: get
 > URI: api/users/{userid}/edit
 
@@ -81,7 +85,7 @@ delete          api/users/{userid}      destroy     删除用户
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
 
-#### 2.5 更新用户信息
+#### 3.3 更新用户信息
 > Method: put
 > URI: api/users/{userid}
 
@@ -104,7 +108,7 @@ delete          api/users/{userid}      destroy     删除用户
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
 
-#### 2.6 删除用户
+#### 3.4 删除用户
 > Method: delete
 > URI: api/users/{userid}
 
@@ -115,3 +119,68 @@ delete          api/users/{userid}      destroy     删除用户
 
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
+
+### 4. 权限相关API
+#### 4.1 角色管理中授权页面展示
+> Method: get
+> URI: api/rolepriv/{roleid}/edit
+> table: system_role,system_node_copy,system_role_node_copy
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| roleid | string | yes | 角色id | 无 | 1 |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+
+| 出参 | 类型 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- |
+| role_info.role_id | int | 角色id | 无 | 2 |
+| role_info.role_name | string | 角色名称 | 无 | 央视新闻移动网版面编辑 |
+| role_info.role_company_id | string | 公司id | 无 | 10001 |
+| role_info.role_shortname | string | 别名 | 无 | admin |
+| role_info.role_status | string | 角色状态,1:正常,-1:删除 | 无 | 1 |
+| role_info.role_alone | string | 是否是单独角色,2:单独个人角色 | 无 | 1 |
+| role_id | int | 角色id | 无 | 2 |
+| priv_list[0].pid | string | 节点id | 无 | 232 |
+| priv_list[0].menuName | string | 节点名称 | 无 | 新建 |
+| priv_list[0].module | string | 模块 | 无 | new |
+| priv_list[0].controller | string | 控制器 | 无 | Manuscript |
+| priv_list[0].action | string | 动作 | 无 | addPageContactManuscript |
+| priv_list[0].parentId | string | 父级id | 无 | 0 |
+| priv_list[0].isMenu | string | 是否是菜单项 | 无 | 1 |
+| priv_list[0].menuDesc | string | 菜单描述 | 无 | 新增/编辑稿件（包含短视频发布/直播发布） |
+| priv_list[0].yes | string | 是否选中,1:选中,0:未选中 | 无 | 1 |
+| priv_list[0].child[0].pid | int | 子节点id | 无 | 190 |
+| priv_list[0].child[0].menuName | string | 子节点名称 | 无 | 新建稿件 |
+| ...... | ....... | ....... | ...... | ......... |
+| priv_list[0].child[0].child[0].menuName | string | 子节点名称 | 无 | 新建稿件 |
+| ...... | ....... | ....... | ...... | ......... |
+
+#### 4.2 更新角色权限
+> Method: put
+> URI: api/rolepriv/{userid}
+
+
+#### 4.3 获取用户菜单
+> Method: get
+> URI: api/usermenu/{alone_roleid}
+> table: 
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| alone_roleid | string | yes | 用户角色id | 无 | 1 |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+
+| 出参 | 类型 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- |
+| menu[0].pid | string | 节点id | 无 | 232 |
+| menu[0].menuName | string | 节点名称 | 无 | 新建 |
+| menu[0].module | string | 模块 | 无 | new |
+| menu[0].controller | string | 控制器 | 无 | Manuscript |
+| menu[0].action | string | 动作 | 无 | addPageContactManuscript |
+| menu[0].parentId | string | 父级id | 无 | 0 |
+| menu[0].isMenu | string | 是否是菜单项 | 无 | 1 |
+| menu[0].child[0].pid | int | 子节点id | 无 | 190 |
+| menu[0].child[0].menuName | string | 子节点名称 | 无 | 新建稿件 |
+| ...... | ....... | ....... | ...... | ......... |
+| priv_list[0].child[0].menuName | string | 子节点名称 | 无 | 新建稿件 |
+| ...... | ....... | ....... | ...... | ......... |
