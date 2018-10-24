@@ -130,5 +130,135 @@ history -c: 删除所有(cache中)
 !#: 调用历史中第#条命令
 !command: 调用历史中以command开始的命令
 ```
+#### 9.5 date命令(date --help)
+```php
+# date [选项]... [+格式]: 显示日期
+date +%a/A:显示星期几
+date +%D/F: 显示日期
+date +%T: 显示时间
+
+# date [-u|--utc|--universal] [MMDDhhmm[[CC]YY][.ss]]: 设定日期
+date 102315112018.59
+
+# hwclock - query and set the hardware clock(man hwclock)
+-s/-w: 系统时钟与硬件时钟时间互转
+```
+
+#### 9.6 相关环境变量
+```php
+PWD: 保存了当前目录路径(echo $PWD | pwd)
+OLDPWD: 上次路径(cd -)
+```
+
+#### 9.7 stat + filename: 显示文件元数据信息(size,various time etc.)
+
+#### 9.8 file + filename: 判断文件类型
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
