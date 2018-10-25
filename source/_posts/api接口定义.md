@@ -72,20 +72,7 @@ put             api/rolepriv/{userid}           更新角色权限
 | reporter_group_name | string | 部门分组 | 无 | 技术部/合作组 |
 
 
-
-#### 3.2 编辑用户信息
-> Method: get
-> URI: api/users/{userid}/edit
-
-| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| userid | string | yes | 用户名 | 无 | 1 |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
-
-| 出参 | 类型 | 参数说明 |
-| :--- | :--- | :--- | :--- | :--- |
-
-#### 3.3 更新用户信息
+#### 3.2 更新用户信息
 > Method: put
 > URI: api/users/{userid}
 
@@ -100,15 +87,15 @@ put             api/rolepriv/{userid}           更新角色权限
 | reporter_group_name | yes | string | 部门分组 | 无 | 技术部/合作组 |
 | expirydate | string | yes | 过期时间 | 无 | 2019-09-20 |
 | description | string | yes | 描述 | 无 | i am a description |
-| role_name | string | yes | 角色名称 | 无 | 系统管理员 |
-| company_name | string | yes | 公司名称 | 无 | 央视新闻移动网 |
+| role_id | string | no | 角色id | 无 | 1 |
+| companyid | string | yes | 公司id | 无 | 10001 |
 | user_password | string | yes | 用户密码 | 无 | $2y$10$jrYGOgJPS/Rs.AAVyesEE./Oq8coNKU/Is0yBV2KQGXlngZ6no6Di |
 
 
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
 
-#### 3.4 删除用户
+#### 3.3 删除用户
 > Method: delete
 > URI: api/users/{userid}
 
@@ -120,7 +107,128 @@ put             api/rolepriv/{userid}           更新角色权限
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
 
+#### 3.4 获取用户列表
+> Method: get
+> URI: api/userlist
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| page | string | yes | 页数 | 无 | 1 |
+| limit | string | yes | 条数 | 无 | 10 |
+| user_name | string | yes | 用户名称 | 无 | xiaoming |
+| user_nickname | string | yes | 用户昵称 | 无 | 小明 |
+| mobile | string | yes | 手机号 | 无 | 13341028691 |
+| t_status | string | yes | 状态 | 无 | 1 |
+| role_id | string | yes | 角色id | 无 | 1 |
+| alone_role_id | string | yes | 独立授权角色id | 无 | 1 |
+| group_id | string | yes | 分组id | 无 | 1 |
+| companyid | string | yes | 公司id | 无 | 1 |
+
+
+| 出参 | 类型 | 参数说明 | 例子 |
+| :--- | :--- | :--- | :--- | :--- |
+| id | string | ID | 1009 |
+| user_name | string | 用户名 | xiaoming |
+| user_nickname | string | 昵称 | 小明 |
+| mobile | string | 手机号 | 13341028691 |
+| role_id | int | 角色id | 1 |
+| role_name | string | 角色名称 | 最高运维权限 |
+| company_id | int | 公司id | 1 |
+| company_name | string | 公司名称 | 央视网 |
+| group_name | string | 分组名称 | 技术部 |
+| expirydate | string | 过期时间 | 2019-05-31 |
+| actionBtn | string | 动作按钮 | .... |
+
+#### 3.5 获取角色,公司,部门
+> Method: get
+> URI: api/role_company_list
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+
+| 出参 | 类型 | 参数说明 | 例子 |
+| :--- | :--- | :--- | :--- | :--- |
+| role_lists.rid | int | 角色ID | 1009 |
+| role_lists.rolename | string | 角色名称 | 机构管理员 |
+| role_lists.role_company_id | int | 角色对应公司id | 10001 |
+| company_lists.id | int | 公司id | 10001 |
+| company_lists.name | string | 公司名称 | 央视新闻移动网 |
+| group_data.reporter_group_id | int | 部门id | 303 |
+| group_data.reporter_group_name | string | 部门名称 | 技术部 |
+| group_data.company_id | int | 部门所属公司id | 10001 |
+| group_data.parent_id | int | 父级id | 302 |
+
+#### 3.6 新建cms用户
+> Method: post
+> URI: api/users
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| user_name | string | yes | 登录名 | 无 | xiaoming |
+| user_nickname | string | yes | 昵称 | 无 | 小明 |
+| mobile | string | yes | 手机号 | 无 | 13312341234 |
+| t_status | string | yes | 状态(0:关闭,1:开启) | 无 | 1 |
+| reporter_group_name | yes | string | 部门分组 | 无 | 技术部/合作组 |
+| expirydate | string | yes | 过期时间 | 无 | 2019-09-20 |
+| description | string | yes | 描述 | 无 | i am a description |
+| role_id | string | no | 角色id | 无 | 1 |
+| companyid | string | yes | 公司id | 无 | 10001 |
+| user_password | string | yes | 用户密码 | 无 | $2y$10$jrYGOgJPS/Rs.AAVyesEE./Oq8coNKU/Is0yBV2KQGXlngZ6no6Di |
+
+| 出参 | 类型 | 参数说明 |
+| :--- | :--- | :--- | :--- | :--- |
+
 ### 4. 权限相关API
+#### 4.1 角色列表展示
+> Method: get
+> URI: api/rolelist
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+
+| 出参 | 类型 | 参数说明 | 例子 |
+| :--- | :--- | :--- | :--- | :--- |
+| role | int | 角色ID | 1009 |
+| role_name | string | 角色名称 | 机构管理员 |
+| company_name | string | 公司名称 | 央视新闻移动网 |
+| cactionBtn | string | 动作按钮 | .... |
+
+#### 4.2 新增角色
+> Method: put
+> URI: api/role
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| roleid | int | yes | 角色id | 无 | 1 |
+| role_name | string | yes | 角色名称 | 无 | 运维 |
+| role_company_id | int | yes | 公司id | 无 | 10001 |
+| role_status | string | yes | 状态,0:冻结,1:正常 | 无 | 1 |
+
+
+| 出参 | 类型 | 参数说明 |
+| :--- | :--- | :--- | :--- | :--- |
+
+#### 4.3 角色编辑
+> Method: put
+> URI: api/role/{roleid}
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| roleid | int | yes | 角色id | 无 | 1 |
+| role_name | string | yes | 角色名称 | 无 | 运维 |
+| role_company_id | int | yes | 公司id | 无 | 10001 |
+| role_status | string | yes | 状态,0:冻结,1:正常 | 无 | 1 |
+
+
+| 出参 | 类型 | 参数说明 |
+| :--- | :--- | :--- | :--- | :--- |
+
 #### 4.1 角色管理中授权页面展示
 > Method: get
 > URI: api/rolepriv/{roleid}/edit

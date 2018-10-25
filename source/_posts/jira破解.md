@@ -80,7 +80,7 @@ unzip jira7.3.zip
 /usr/local/atlassian-jira-software-7.3.6-standalone/bin/start-jira.sh
 ```
 
-### 9. nginx反向代理
+### 9. nginx反向代理(记得加gzip)
 
 ```php
 
@@ -99,3 +99,28 @@ server {
 }
 
 ```
+
+### 10. tomcat配置修改(保证域名一致性,而不是有些地方是ip)
+```php
+<Service name="Catalina">
+
+        <Connector port="8080"
+
+                   maxThreads="150"
+                   minSpareThreads="25"
+                   connectionTimeout="20000"
+
+                   enableLookups="false"
+                   maxHttpHeaderSize="8192"
+                   protocol="HTTP/1.1"
+                   useBodyEncodingForURI="true"
+                   redirectPort="8443"
+                   acceptCount="100"
+                   disableUploadTimeout="true"
+                   proxyName="jira.newscctv.net"  
+                   proxyPort="80"
+                   bindOnInit="false"/>
+```
+
+> 位置: /usr/local/atlassian-jira-software-7.3.6-standalone/conf/server.xml
+> 添加proxyName="jira.newscctv.net"  proxyPort="80"
