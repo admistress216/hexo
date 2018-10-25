@@ -11,6 +11,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 
 ### 2.下载及安装
 下载地址: [redis官网](http://redis.io)
+        [git地址](https://github.com/MicrosoftArchive/redis/releases)
 安装: 
 ```php
 //必要环境: 
@@ -73,6 +74,177 @@ incrby/decrbyfloat key float:一次加减float
 setbit key offset value: 偏移量操作(单词大小写相差32)
 
 ```
+#### 4.3 List(链表)命令
+```php
+lpush/rpush key value [value]: 把value推进key头部/尾部
+lrange key start end: 取元素,end为-1时取所有
+lpop/rpop key: 弹出元素
+lrem count value: 删除指定数量的值,count为负数时从尾部开始
+ltrim key start end: 截取(得到截取后的key)
+lindex key offset: 取出第offset位置的值
+llen key: key的长度
+linsert key after|before search value value1 [已废弃]
+作用: 在key链表中寻找’search’,并在search值之前|之后,.插入value1
+注: 一旦找到一个search后,命令就结束了,因此不会插入多个value1
+
+rpoplpush source dest
+作用: 把source的尾部拿出,放在dest的头部,
+并返回 该单元值
+例子:
+rpush task a b c d
+rpoplpush task job
+lrange task 0 -1: a b c
+lrange job 0 -1: d
+业务逻辑:
+1:Rpoplpush task bak
+2:接收返回值,并做业务处理
+3:如果成功,rpop bak 清除任务. 如不成功,下次从bak表里取任务
+
+brpop ,blpop  key timeout
+作用:等待弹出key的尾/头元素, 
+Timeout为等待超时时间
+如果timeout为0,则一直等待
+场景: 长轮询Ajax,在线聊天时,能够用到
+
+
+```
+### 5. 事物
+#### 5.1 redis与mysql事物对比
+
+|      | mysql | redis |
+| ---- | ---- | ----- |
+| 开启 | start transaction | muitl |
+| 语句 | 普通sql | 普通命令 |
+| 失败 | rollback回滚 | discard取消 |
+| 成功 | commit | exec |
+
+> 注: rollback与discard 的区别
+> 如果已经成功执行了2条语句, 第3条语句出错.
+> Rollback后,前2条的语句影响消失.
+> Discard只是结束本次事务,前2条语句造成的影响仍然还在
+
+> 注:
+> 在mutil后面的语句中, 语句出错可能有2种情况
+> 1: 语法就有问题, 
+> 这种,exec时,报错, 所有语句得不到执行
+> 
+> 2: 语法本身没错,但适用对象有问题. 比如 zadd 操作list对象
+> Exec之后,会执行正确的语句,并跳过有不适当的语句.
+> 
+> (如果zadd操作list这种事怎么避免? 这一点,由程序员负责)
+
+```php
+思考: 
+我正在买票
+Ticket -1 , money -100
+而票只有1张, 如果在我multi之后,和exec之前, 票被别人买了---即ticket变成0了.
+我该如何观察这种情景,并不再提交
+
+悲观的想法: 
+世界充满危险,肯定有人和我抢, 给 ticket上锁, 只有我能操作. [悲观锁]
+
+乐观的想法:
+没有那么人和我抢,因此,我只需要注意,
+--有没有人更改ticket的值就可以了 [乐观锁]
+
+Redis的事务中,启用的是乐观锁,只负责监测key没有被改动.
+
+
+具体的命令----  watch命令(两个terminal模拟)
+例: 
+redis 127.0.0.1:6379> watch ticket
+OK
+redis 127.0.0.1:6379> multi
+OK
+redis 127.0.0.1:6379> decr ticket
+QUEUED
+redis 127.0.0.1:6379> decrby money 100
+QUEUED
+redis 127.0.0.1:6379> exec
+(nil)   // 返回nil,说明监视的ticket已经改变了,事务就取消了.
+redis 127.0.0.1:6379> get ticket
+"0"
+redis 127.0.0.1:6379> get money
+"200"
+
+
+watch key1 key2  ... keyN
+作用:监听key1 key2..keyN有没有变化,如果有变, 则事务取消
+
+unwatch 
+作用: 取消所有watch监听
+```
+### 6. 消息订阅
+
+```php
+使用办法:
+订阅端: Subscribe 频道名称
+发布端: publish 频道名称 发布内容
+
+客户端例子:
+redis 127.0.0.1:6379> subscribe news
+Reading messages... (press Ctrl-C to quit)
+1) "subscribe"
+2) "news"
+3) (integer) 1
+1) "message"
+2) "news"
+3) "good good study"
+1) "message"
+2) "news"
+3) "day day up"
+
+服务端例子:
+redis 127.0.0.1:6379> publish news 'good good study'
+(integer) 1
+redis 127.0.0.1:6379> publish news 'day day up'
+(integer) 1
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
