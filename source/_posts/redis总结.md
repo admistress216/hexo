@@ -201,11 +201,42 @@ redis 127.0.0.1:6379> publish news 'day day up'
 (integer) 1
 
 ```
+### 7.redis持久化
 
+持久化方式:
+- 1.快照rdb
+- 2.日志aof(append only file)
 
+#### 7.1 快照(rdb)
+```php
+save 900 1      // 900内,有1条写入,则产生快照 
+save 300 1000   // 如果300秒内有1000次写入,则产生快照
+save 60 10000  // 如果60秒内有10000次写入,则产生快照
+(这3个选项都屏蔽,则rdb禁用)
 
+stop-writes-on-bgsave-error yes  // 后台备份进程出错时,主进程停不停止写入?
+rdbcompression yes    // 导出的rdb文件是否压缩
+Rdbchecksum   yes //  导入rbd恢复时数据时,要不要检验rdb的完整性
+dbfilename dump.rdb  //导出来的rdb文件名
+dir ./  //rdb的放置路径
 
+```
 
+#### 7.2 日志(aof)
+```php
+Aof 的配置
+appendonly yes # 是否打开 aof日志功能
+
+appendfsync always   # 每1个命令,都立即同步到aof. 安全,速度慢
+appendfsync everysec # 折衷方案,每秒写1次
+appendfsync no      # 写入工作交给操作系统,由操作系统判断缓冲区大小,统一写入到aof. 同步频率低,速度快,
+appendfilename "/var/aof/appendonly.aof" #文件存放位置
+
+no-appendfsync-on-rewrite  yes: # 正在导出rdb快照的过程中,要不要停止同步aof
+auto-aof-rewrite-percentage 100 #aof文件大小比起上次重写时的大小,增长率100%时,重写
+auto-aof-rewrite-min-size 64mb #aof文件,至少超过64M时,重写
+
+```
 
 
 
