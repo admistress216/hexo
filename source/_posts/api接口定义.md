@@ -5,18 +5,25 @@ tags:
 ---
 ### 1. REST API
 ```php
+
 Method          URI                             Comment
 post            api/login                       登录
 post            api/logout                      退出登录
 
-get             api/users                       获取用户列表
 get             api/users/{userid}              获取单个用户信息
-get             api/users/{userid}/edit         编辑用户
 put             api/users/{userid}              更新用户
 delete          api/users/{userid}              删除用户
+get             api/users/list                  获取用户列表
+get             api/role_company_list           获取角色,公司,部门
+post            api/users                       新建cms用户
 
-get             api/rolepriv/{userid}/edit      角色权限展示
-put             api/rolepriv/{userid}           更新角色权限
+get             api/roles/list                  角色列表展示
+post            api/roles/add                   新增角色
+put             api/roles/{roleid}/edit         角色编辑
+get             api/rolepriv/{roleid}           角色管理中角色授权页面展示
+put             api/rolepriv/{userid}/upd       更新角色权限
+get             api/usermenu/{role_id}          获取用户菜单
+
 ```
 
 ### 2. 登录相关API
@@ -71,7 +78,6 @@ put             api/rolepriv/{userid}           更新角色权限
 | t_status | string | 状态(0:关闭,1:开启) | 无 | 1 |
 | reporter_group_name | string | 部门分组 | 无 | 技术部/合作组 |
 
-
 #### 3.2 更新用户信息
 > Method: put
 > URI: api/users/{userid}
@@ -109,7 +115,7 @@ put             api/rolepriv/{userid}           更新角色权限
 
 #### 3.4 获取用户列表
 > Method: get
-> URI: api/userlist
+> URI: api/users/list
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -119,11 +125,11 @@ put             api/rolepriv/{userid}           更新角色权限
 | user_name | string | yes | 用户名称 | 无 | xiaoming |
 | user_nickname | string | yes | 用户昵称 | 无 | 小明 |
 | mobile | string | yes | 手机号 | 无 | 13341028691 |
-| t_status | string | yes | 状态 | 无 | 1 |
-| role_id | string | yes | 角色id | 无 | 1 |
-| alone_role_id | string | yes | 独立授权角色id | 无 | 1 |
-| group_id | string | yes | 分组id | 无 | 1 |
-| companyid | string | yes | 公司id | 无 | 1 |
+| t_status | int | yes | 状态(0:关闭,1:开启) | 无 | 1 |
+| role_id | int | yes | 角色id | 无 | 1 |
+| alone_role_id | int | yes | 独立授权角色id | 无 | 1 |
+| group_id | int | yes | 分组id | 无 | 1 |
+| companyid | int | yes | 公司id | 无 | 1 |
 
 
 | 出参 | 类型 | 参数说明 | 例子 |
@@ -179,12 +185,14 @@ put             api/rolepriv/{userid}           更新角色权限
 | user_password | string | yes | 用户密码 | 无 | $2y$10$jrYGOgJPS/Rs.AAVyesEE./Oq8coNKU/Is0yBV2KQGXlngZ6no6Di |
 
 | 出参 | 类型 | 参数说明 |
-| :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- |
+| access_token | string | 令牌 |
+| user_id | int | 用户id |
 
 ### 4. 权限相关API
 #### 4.1 角色列表展示
 > Method: get
-> URI: api/rolelist
+> URI: api/roles/list
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -198,24 +206,19 @@ put             api/rolepriv/{userid}           更新角色权限
 | cactionBtn | string | 动作按钮 | .... |
 
 #### 4.2 新增角色
-> Method: put
-> URI: api/role
+> Method: post
+> URI: api/roles/add
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
-| roleid | int | yes | 角色id | 无 | 1 |
 | role_name | string | yes | 角色名称 | 无 | 运维 |
 | role_company_id | int | yes | 公司id | 无 | 10001 |
 | role_status | string | yes | 状态,0:冻结,1:正常 | 无 | 1 |
-
-
-| 出参 | 类型 | 参数说明 |
-| :--- | :--- | :--- | :--- | :--- |
 
 #### 4.3 角色编辑
 > Method: put
-> URI: api/role/{roleid}
+> URI: api/roles/{roleid}/edit
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -225,14 +228,9 @@ put             api/rolepriv/{userid}           更新角色权限
 | role_company_id | int | yes | 公司id | 无 | 10001 |
 | role_status | string | yes | 状态,0:冻结,1:正常 | 无 | 1 |
 
-
-| 出参 | 类型 | 参数说明 |
-| :--- | :--- | :--- | :--- | :--- |
-
-#### 4.1 角色管理中授权页面展示
+#### 4.4 角色管理中角色授权页面展示
 > Method: get
-> URI: api/rolepriv/{roleid}/edit
-> table: system_role,system_node_copy,system_role_node_copy
+> URI: api/rolepriv/{roleid}
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -263,15 +261,19 @@ put             api/rolepriv/{userid}           更新角色权限
 | priv_list[0].child[0].child[0].menuName | string | 子节点名称 | 无 | 新建稿件 |
 | ...... | ....... | ....... | ...... | ......... |
 
-#### 4.2 更新角色权限
+#### 4.5 更新角色权限
 > Method: put
-> URI: api/rolepriv/{userid}
+> URI: api/rolepriv/{userid}/upd
 
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| roleid | int | yes | 角色id | 无 | 1 |
+| node.nodeid | int | 授权节点id | 无 | 对应的nodeid |
 
-#### 4.3 获取用户菜单
+#### 4.6 获取用户菜单
 > Method: get
-> URI: api/usermenu/{alone_roleid}
-> table: 
+> URI: api/usermenu/{role_id}
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |

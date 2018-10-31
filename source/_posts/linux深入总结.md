@@ -126,9 +126,19 @@ SYNOPSIS(概要):
 history -a: 将缓存中的命令追加于文件中
 history -d offset: 删除offset处的命令(cache中)
 history -c: 删除所有(cache中)
+history #: 显示历史中最近#条命令
 
 !#: 调用历史中第#条命令
 !command: 调用历史中以command开始的命令
+!$/esc, .: 调用上次命令的最后一个参数
+
+控制命令历史的记录方式:
+    环境变量: HISTCONTROL
+        ignoredups: 忽略重复的命令,连续输入相同命令
+        ignorespace: 忽略所有以空白开头的命令
+        ignoreboth: ignoredups,ignorespace
+    修改环境变量值: export 变量名="值",例子:HISTCONTROL="ignoreboth"
+        把赋值符号后面的数据存储于变量名指定的内存空间,所以重新登录会失效
 ```
 #### 9.5 date命令(date --help)
 ```php
@@ -175,13 +185,59 @@ OLDPWD: 上次路径(cd -)
     /media/cdrom: 光盘
     /media/usb: ubs
 /mnt: 挂载临时文件系统
-/dev: 设备文件
+/dev: 设备文件及特殊文件存放位置
+    b: 块设备(block),随机访问
+    c: 字符设备(character),线性访问
+/opt: 第三方应用程序的安装位置
+/tmp: 临时文件存放位置
+/usr: universal shared, read-only data
+    bin: 应用程序
+    sbin: 应用程序
+    lib/lib64:库文件
+    include: C程序的头文件
+    share: 结构化独立数据
+    local: 第三方应用程序的安装目录
+        bin,sbin,lib,lib64,etc,share
+/var: variable data files
+    cache: 应用程序缓存数据目录
+    lib: 应用程序状态信息数据
+    local: 专用于为/usr/local下的应用程序存储可变数据
+    lock: 所文件
+    log: 日志目录及文件
+    opt: 专用于为/opt下的应用程序存储可变数据
+    run: 运行中的进程相关的数据,常用于存储进程的pid文件
+    spool: 应用程序数据池
+    tmp: 保存系统两次重启之间产生的临时数据
+/proc: 用于输出内核与进程信息相关的虚拟文件系统
+/sys: 用于输出当前系统上硬件设备相关信息的虚拟文件系统
+/selinux: security enhanced Linux,相关安全策略等信息存储位置
+```
+> 注: 除了/boot和/home,/usr之外几乎不可以独立分区
+
+#### 10.3 Linux上的应用程序的组成部分
+```php
+二进制程序: /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, /usr/local/sbin
+库文件: /lib, lib64, /usr/lib, /usr/lib64, /usr/local/lib, /usr/local/lib64
+配置文件: /etc, /etc/Directory, /usr/local/etc
+帮助文件: /usr/share/man, /usr/share/doc, /usr/local/share/man, /usr/local/share/doc
 ```
 
+#### 10.4 关机或重启命令
+halt,poweroff,reboot
+    -f: 强制,不调用shutdown
+    -p: 切断电源
+shutdown [OPTION].... TIME [MESSAGE]
+    -r: reboot
+    -h: halt
+    -c: cancel
+        TIME: 
+            now/+m: +3:3分钟之后
+            hh:mm: 指定时间
 
-
-
-
+#### 10.5 登录信息查看
+whoami: 显示当前登录有效用户
+who: 系统当前所有的登录会话
+w: 系统当前所有的登录会话及所做的操作
 
 
 

@@ -148,7 +148,13 @@ db.collectionName.dropIndexes({name: 1}): 删除collectionName上指定的索引
 ```
 <center>未完待续.......</center>
 
+### 8. node相关
+```
+//pm2按环境启动: 
+pm2 start ecosystem.json --env production
+//ecosystem.json文件
 
+```
 
 
 
