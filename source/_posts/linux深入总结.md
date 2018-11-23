@@ -239,7 +239,37 @@ whoami: 显示当前登录有效用户
 who: 系统当前所有的登录会话
 w: 系统当前所有的登录会话及所做的操作
 
+#### 10.6 创建文件夹
+mkdir:
+-v(verbose): 详细信息
+-p: 多级创建
+如何创建x_m,y_m,x_n,y_n?
+mkdir -v {x,y}_{m,n}
 
+> linux用$?保存最近一条命令的执行结果
+> echo $?
+> 其中0表示成功,1-255表示失败
+
+#### 10.7 文件的时间戳管理工具(touch)
+
+> 查看文件状态: stat filename
+> 
+> 文件的三个时间戳
+> access time: 访问时间,atime,读取文件内容时发生改变
+> modify time: 修改时间,mtime,改变文件内容时发生变化
+> change time: 改变时间,ctime,改变元数据是内容发生变化
+
+```
+touch -a/m install.log 改变atime和mtime为当前时间
+-t STAMP: 改为指定时间
+    [[CC]YY]MMDDhhmm[,ss]
+-c: 如果文件不存在则不予创建
+```
+
+#### 10.8 tty,pty,pts的区别
+tty: 终端设备(6个,tty1-6),tty0为当前终端
+pty: 虚拟终端
+pts: 伪终端(xshell等)
 
 
 

@@ -8,21 +8,24 @@ tags:
 
 Method          URI                             Comment
 post            api/login                       登录
-post            api/logout                      退出登录
+delete          /authorizations/current         退出登录
+put             /authorizations/current         刷新token
 
 get             api/users/{userid}              获取单个用户信息
 put             api/users/{userid}              更新用户
 delete          api/users/{userid}              删除用户
-get             api/users/list                  获取用户列表
-get             api/role_company_list           获取角色,公司,部门
+get             api/users                       获取用户列表
 post            api/users                       新建cms用户
 
-get             api/roles/list                  角色列表展示
-post            api/roles/add                   新增角色
-put             api/roles/{roleid}/edit         角色编辑
-get             api/rolepriv/{roleid}           角色管理中角色授权页面展示
-put             api/rolepriv/{userid}/upd       更新角色权限
-get             api/usermenu/{role_id}          获取用户菜单
+get             api/companies                   获取公司列表
+get             api/departments                 获取部门列表
+
+get             api/roles                       角色列表展示
+post            api/roles                       新增角色
+put             api/roles/{roleid}              角色编辑
+get             api/priv/{roleid}               角色管理中角色授权页面展示
+put             api/priv/{userid}               更新角色权限
+get             api/menu/{user_id}          获取用户菜单
 
 ```
 
@@ -30,30 +33,46 @@ get             api/usermenu/{role_id}          获取用户菜单
 
 #### 2.1 登录
 > Method: post
-> URI: api/login
+> URI: api/authorizations
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | email | string | yes | 用户名 | 无 | lynch.bertram@example.com |
-| password | string | yes | 加密密码 | 无 | rtrim(strtr(base64_encode('password'), '+/', '-_'), '=') |
+| password | string | yes | 加密密码 | 无 | 见密码生成规则 |
+
+> 密码生成规则:
+> password_hash(md5(random(32)).hash('sha512', $password), PASSWORD_DEFAULT)
 
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | 令牌 |
-| id | int | 用户id |
-| user_nickname | string | 用户昵称 |
-|avatar | string | 头像 |
+| token | string | 令牌 |
+| expired_at | string | 获取时间 |
+| refresh_expired_at | string | 过期时间 |
 
 #### 2.2 退出登录
-> Method: post
-> URI: api/logout
+> Method: delete
+> URI: /authorizations/current
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| Authorization | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
+
+#### 2.3 刷新token
+> Method: put
+> URI: /authorizations/current
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Authorization | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+
+| 出参 | 类型 | 参数说明 |
+| :--- | :--- | :--- | :--- | :--- |
+| token | string | 令牌 |
+| expired_at | string | 获取时间 |
+| refresh_expired_at | string | 过期时间 |
 
 ### 3. 用户相关API
 #### 3.1 获取单个用户信息
@@ -63,7 +82,7 @@ get             api/usermenu/{role_id}          获取用户菜单
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | id | int | yes | 用户id | 无 | 123 |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 
 | 出参 | 类型 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -85,7 +104,7 @@ get             api/usermenu/{role_id}          获取用户菜单
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | userid | string | yes | 用户名 | 无 | 1 |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 | user_name | string | yes | 登录名 | 无 | xiaoming |
 | user_nickname | string | yes | 昵称 | 无 | 小明 |
 | mobile | string | yes | 手机号 | 无 | 13312341234 |
@@ -95,8 +114,7 @@ get             api/usermenu/{role_id}          获取用户菜单
 | description | string | yes | 描述 | 无 | i am a description |
 | role_id | string | no | 角色id | 无 | 1 |
 | companyid | string | yes | 公司id | 无 | 10001 |
-| user_password | string | yes | 用户密码 | 无 | $2y$10$jrYGOgJPS/Rs.AAVyesEE./Oq8coNKU/Is0yBV2KQGXlngZ6no6Di |
-
+| user_password | string | yes | 用户密码 | 无 | 123456 |
 
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -108,18 +126,18 @@ get             api/usermenu/{role_id}          获取用户菜单
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | userid | string | yes | 用户名 | 无 | 1 |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- | :--- | :--- |
 
 #### 3.4 获取用户列表
 > Method: get
-> URI: api/users/list
+> URI: api/users
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 | page | string | yes | 页数 | 无 | 1 |
 | limit | string | yes | 条数 | 无 | 10 |
 | user_name | string | yes | 用户名称 | 无 | xiaoming |
@@ -146,33 +164,13 @@ get             api/usermenu/{role_id}          获取用户菜单
 | expirydate | string | 过期时间 | 2019-05-31 |
 | actionBtn | string | 动作按钮 | .... |
 
-#### 3.5 获取角色,公司,部门
-> Method: get
-> URI: api/role_company_list
-
-| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
-
-| 出参 | 类型 | 参数说明 | 例子 |
-| :--- | :--- | :--- | :--- | :--- |
-| role_lists.rid | int | 角色ID | 1009 |
-| role_lists.rolename | string | 角色名称 | 机构管理员 |
-| role_lists.role_company_id | int | 角色对应公司id | 10001 |
-| company_lists.id | int | 公司id | 10001 |
-| company_lists.name | string | 公司名称 | 央视新闻移动网 |
-| group_data.reporter_group_id | int | 部门id | 303 |
-| group_data.reporter_group_name | string | 部门名称 | 技术部 |
-| group_data.company_id | int | 部门所属公司id | 10001 |
-| group_data.parent_id | int | 父级id | 302 |
-
-#### 3.6 新建cms用户
+#### 3.5 新建cms用户
 > Method: post
 > URI: api/users
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 | user_name | string | yes | 登录名 | 无 | xiaoming |
 | user_nickname | string | yes | 昵称 | 无 | 小明 |
 | mobile | string | yes | 手机号 | 无 | 13312341234 |
@@ -186,17 +184,58 @@ get             api/usermenu/{role_id}          获取用户菜单
 
 | 出参 | 类型 | 参数说明 |
 | :--- | :--- | :--- |
-| access_token | string | 令牌 |
+| token | string | 令牌 |
 | user_id | int | 用户id |
+
+#### 3.6 获取公司列表
+> Method: get
+> URI: api/companies
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| page | string | no | 页数 | 无 | 1 |
+| _search | string | no | 机构名称或机构id | 无 | 1 |
+
+| 出参 | 类型 | 参数说明 | 例子 |
+| :--- | :--- | :--- | :--- | :--- |
+| id | int | 公司id | 10001 |
+| icon | string | 机构图片 | https://www.newscctv.net/tap2cdn/video/images//images/10001/544/juzhenhao/20180206193804610.jpg' src='https://www.newscctv.net/tap2cdn/video/images//images/10001/544/juzhenhao/20180206193804610.jpg__w_100.jpg |
+| name | string | 机构名称 | 央视新闻移动网 |
+| cmslimit | int | cms人员限制 | 10 |
+| reportlimit | int | 采集人员限制 | 10 |
+| hot | int | 订阅数 | 10 |
+| createtime | string | 创建时间 | 2018-02-06 19:38:30 |
+| expirydate | string | 过期时间 | 2018-02-06 19:38:30 |
+| status | string | 状态 | 正常/冻结 |
+| actionBtn | string | 操作按钮 | .... |
+
+#### 3.7 获取部门列表
+> Method: get
+> URI: api/departments
+
+| 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| page | string | no | 页数 | 无 | 1 |
+| _search | string | no | 部门名称 | 无 | 1 |
+
+| 出参 | 类型 | 参数说明 | 例子 |
+| :--- | :--- | :--- | :--- | :--- |
+| department_name | string | 部门名称 | 企划部 |
+| department_group | string | 部门分组 | 新闻组 |
+| add_time | string | 部门创建时间 | 2018-10-11 14:56:06 |
+| add_editor | string | 部门创建人 | 系统管理员 |
+| actionBtn | string | 操作按钮 | .... |
 
 ### 4. 权限相关API
 #### 4.1 角色列表展示
 > Method: get
-> URI: api/roles/list
+> URI: api/roles
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 
 | 出参 | 类型 | 参数说明 | 例子 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -207,11 +246,11 @@ get             api/usermenu/{role_id}          获取用户菜单
 
 #### 4.2 新增角色
 > Method: post
-> URI: api/roles/add
+> URI: api/roles
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 | role_name | string | yes | 角色名称 | 无 | 运维 |
 | role_company_id | int | yes | 公司id | 无 | 10001 |
 | role_status | string | yes | 状态,0:冻结,1:正常 | 无 | 1 |
@@ -222,7 +261,7 @@ get             api/usermenu/{role_id}          获取用户菜单
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 | roleid | int | yes | 角色id | 无 | 1 |
 | role_name | string | yes | 角色名称 | 无 | 运维 |
 | role_company_id | int | yes | 公司id | 无 | 10001 |
@@ -230,12 +269,12 @@ get             api/usermenu/{role_id}          获取用户菜单
 
 #### 4.4 角色管理中角色授权页面展示
 > Method: get
-> URI: api/rolepriv/{roleid}
+> URI: api/priv/{roleid}
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | roleid | string | yes | 角色id | 无 | 1 |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 
 | 出参 | 类型 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -263,22 +302,22 @@ get             api/usermenu/{role_id}          获取用户菜单
 
 #### 4.5 更新角色权限
 > Method: put
-> URI: api/rolepriv/{userid}/upd
+> URI: api/priv/{userid}
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 | roleid | int | yes | 角色id | 无 | 1 |
 | node.nodeid | int | 授权节点id | 无 | 对应的nodeid |
 
 #### 4.6 获取用户菜单
 > Method: get
-> URI: api/usermenu/{role_id}
+> URI: api/menu/{user_id}
 
 | 入参 | 类型 | 是否必须 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | alone_roleid | string | yes | 用户角色id | 无 | 1 |
-| access_token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
+| token | string | yes | 令牌 | 无 | xxx.yyy.zzz |
 
 | 出参 | 类型 | 参数说明 | 默认值 | 例子 |
 | :--- | :--- | :--- | :--- | :--- |
