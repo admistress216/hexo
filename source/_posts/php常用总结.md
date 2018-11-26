@@ -309,8 +309,79 @@ pkill -9 php-fpm #杀死php进程',
 
 ```
 
+### 6. 自定义函数
+#### 6.1 ip与int型互转
+```php
+//原理:无论是二进制移位,还是其他操作,原理都是以256(16^2)为单位进行处理
+function ipToInt($ip) {
+    $ipArr = explode('.', $ip);
+    $ip = $ipArr[0] * 0x1000000
+    + $ipArr[1] * 0x10000
+        + $ipArr[2] *0x100
+        + $ipArr[3];
+    return $ip;
+}
 
+function ipToInt1($ip) {
+    $ipArr = explode('.', $ip);
+    $ip = $ipArr[0] * pow(16, 6)
+        + $ipArr[1] * pow(16, 4)
+        + $ipArr[2] * pow(16, 2)
+        + $ipArr[3];
+    return $ip;
+}
 
+function ipToInt2($ip) {
+    $ipArr = explode('.', $ip);
+    $ip = ($ipArr[0] << 24)
+        + ($ipArr[1] << 16)
+        + ($ipArr[2] << 8)
+        + $ipArr[3];
+    return $ip;
+}
+
+function intToIp($int) {
+    $ipArr[0] = floor($int/pow(16, 6));
+    $ipVint = $int - ($ipArr[0] * pow(16, 6));
+    $ipArr[1] = ($ipVint & 0xFF0000) >> 16;
+    $ipArr[2] = ($ipVint & 0xFF00) >> 8;
+    $ipArr[3] = $ipVint & 0xFF;
+    return implode('.', $ipArr);
+}
+
+function intToIp1($int) {
+    $a = ($int >> 24) & 255;
+    $b = ($int >> 16) & 255;
+    $c = ($int >> 8) & 255;
+    $d = $int & 255;
+    return "$a.$b.$c.$d";
+}
+$ip = '192.168.200.109';
+var_dump(ipToInt($ip));
+var_dump(ipToInt1($ip));
+var_dump(ipToInt2($ip));
+var_dump(intToIp(ipToInt($ip)));
+var_dump(intToIp1(ipToInt($ip)));
+```
+
+### 7. 手册总结
+#### 7.1 heredoc与nowdoc的区别
+```php
+$heredoc = <<<EOD
+my name is {$name}.
+EOD;
+//或者
+$heredoc = <<<"EOD"
+my name is {$name}.
+EOD;
+
+$nowdoc = <<<'EOT'
+my name is {$name}.
+EOT;
+
+```
+> 区别: heredoc会进行变量解析(相当于双引号),nowdoc不会进行变量解析(相当于单引号)
+#### 7.2
 
 
 

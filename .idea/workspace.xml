@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="514dd574-fa65-4d42-b833-d489e4323cd0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/source/_posts/php-fpm总结.md" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/_posts/api接口定义.md" afterPath="$PROJECT_DIR$/source/_posts/api接口定义.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/_posts/linux深入总结.md" afterPath="$PROJECT_DIR$/source/_posts/linux深入总结.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/_posts/nginx总结.md" afterPath="$PROJECT_DIR$/source/_posts/nginx总结.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/source/_posts/php常用总结.md" afterPath="$PROJECT_DIR$/source/_posts/php常用总结.md" />
     </list>
     <ignored path="hexo.iws" />
@@ -79,11 +74,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="php常用总结.md" pinned="false" current-in-tab="false">
+          <file leaf-file-name="php常用总结.md" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/source/_posts/php常用总结.md">
               <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
                 <state split_layout="SPLIT">
-                  <first_editor relative-caret-position="0">
+                  <first_editor relative-caret-position="15">
                     <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
                     <folding />
                   </first_editor>
@@ -94,8 +89,8 @@
               </provider>
               <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
                 <state split_layout="FIRST">
-                  <first_editor relative-caret-position="417">
-                    <caret line="288" column="17" selection-start-line="288" selection-start-column="17" selection-end-line="288" selection-end-column="17" />
+                  <first_editor relative-caret-position="375">
+                    <caret line="403" column="0" selection-start-line="403" selection-start-column="0" selection-end-line="403" selection-end-column="0" />
                     <folding />
                   </first_editor>
                   <second_editor />
@@ -103,7 +98,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="nginx总结.md" pinned="false" current-in-tab="true">
+          <file leaf-file-name="nginx总结.md" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/source/_posts/nginx总结.md">
               <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
                 <state split_layout="SPLIT">
@@ -276,8 +271,8 @@
         <option value="$PROJECT_DIR$/source/_posts/vue深入学习.md" />
         <option value="$PROJECT_DIR$/source/_posts/Andriod总结.md" />
         <option value="$PROJECT_DIR$/source/_posts/php-fpm总结.md" />
-        <option value="$PROJECT_DIR$/source/_posts/php常用总结.md" />
         <option value="$PROJECT_DIR$/source/_posts/nginx总结.md" />
+        <option value="$PROJECT_DIR$/source/_posts/php常用总结.md" />
       </list>
     </option>
   </component>
@@ -292,10 +287,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1440" />
-    <option name="y" value="-510" />
-    <option name="width" value="1080" />
-    <option name="height" value="1920" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -472,14 +465,15 @@
       <workItem from="1542856263601" duration="276000" />
       <workItem from="1542856621198" duration="3000" />
       <workItem from="1542943186796" duration="6615000" />
+      <workItem from="1543202415094" duration="2657000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120636000" />
+    <option name="totallyTimeSpent" value="123293000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1440" y="-510" width="1080" height="1920" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24855492" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1415,50 +1409,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/_posts/php-fpm总结.md">
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/_posts/php常用总结.md">
-      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state />
-          </second_editor>
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="417">
-            <caret line="288" column="17" selection-start-line="288" selection-start-column="17" selection-end-line="288" selection-end-column="17" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_posts/php-fpm总结.md" />
     <entry file="file://$PROJECT_DIR$/source/_posts/Andriod总结.md">
       <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
@@ -1497,6 +1448,28 @@
         <state split_layout="FIRST">
           <first_editor relative-caret-position="450">
             <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/_posts/php常用总结.md">
+      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="15">
+            <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="375">
+            <caret line="403" column="0" selection-start-line="403" selection-start-column="0" selection-end-line="403" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
