@@ -52,8 +52,8 @@ xdebug.remote_autostart=1
 ```
 
 ### 3. /etc/init.d和/etc/rc.local
-/etc/init.d: 系统进程管理,command有start,stop,restart,reload等
-/etc/rc.local: 开机启动
+/etc/init.d: 系统进程管理,command有start,stop,restart,reload等(service)
+/etc/rc.local -> /etc/rc.d/rc.local: 开机启动
 
 ### 4. php-fpm相关
 #### 4.1 /etc/init.d/php-fpm脚本内容

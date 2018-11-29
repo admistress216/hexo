@@ -10,12 +10,18 @@ server in http, location in server
 
 #### 1.2 nginx与apache对比
 4G内存服务器+apache(prefork模式)一般只能处理3000个并发;
-Nginx 0.8.15 + PHP 5.2.10 (FastCGI) 服务器在3万并发连接下，开启的10个Nginx进程消耗150M内存（15M \* 10=150M），开启的64个php-cgi进程消耗1280M内存（20M * 64=1280M），加上系统自身消耗的内存，总共消耗不到2GB内存。如果服务器内存较小，完全可以只开启25个php-cgi进程，这样php-cgi消耗的总内存数才500M
+Nginx 0.8.15 + PHP 5.2.10 (FastCGI) 服务器在3万并发连接下(单台物理机可支持30000~50000个并发)，开启的10个Nginx进程消耗150M内存（15M \* 10=150M），开启的64个php-cgi进程消耗1280M内存（20M * 64=1280M），加上系统自身消耗的内存，总共消耗不到2GB内存。如果服务器内存较小，完全可以只开启25个php-cgi进程，这样php-cgi消耗的总内存数才500M
 关键是nginx在3万的并发下,仍然速度飞快,所以说同等环境下,nginx是apache连接并发数的10倍.
 
 #### 1.3 下载安装与启动
+- gcc安装: 用于源码编译
+- pcre安装: PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库。nginx也需要此库。
+- zlib安装: zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库
+- openssl安装: OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试或其它目的使用。
+nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http），所以需要在 Centos 安装 OpenSSL 库
+
 ```php
-yum -y install pcre pcre-devel zlib-devel //缺少pcre(用于正则)和zlib(压缩算法)的情况
+yum -y install gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel //缺少pcre(用于正则)和zlib(压缩算法)的情况
 ./configure --prefix=/usr/local/nginx
 make && make install
 ./nginx //启动
@@ -201,6 +207,66 @@ client_max_body_size 8M;
 client_body_buffer_size 128k;
 ```
 
+#### 6.1 会话持久性
+- 方式一: 用ip_hash实现(基于ip实现)
+```php
+
+upstream backend {
+    ip_hash;
+    server 127.0.0.1:9000;
+    server 127.0.0.1:9001;
+}
+
+```
+> 存在问题:
+> 当后端服务器宕机后，session会丢失；
+> 来自同一局域网的客户端会被转发到同一个后端服务器，可能导致负载失衡；
+> 不适用于CDN网络，不适用于前段还有代理的情况。
+
+- 方式二: nginx-sticky-module
+```php
+./configure --prefix=/usr/local/nginx --add-module=../nginx-sticky-1.2.5
+
+//报错
+/root/nginx-sticky-1.2.5//ngx_http_sticky_misc.c: 在函数‘ngx_http_sticky_misc_sha1’中:
+/root/nginx-sticky-1.2.5//ngx_http_sticky_misc.c:176:15: 错误：‘SHA_DIGEST_LENGTH’未声明(在此函数内第一次使用)
+   u_char hash[SHA_DIGEST_LENGTH];
+               ^
+/root/nginx-sticky-1.2.5//ngx_http_sticky_misc.c:176:15: 附注：每个未声明的标识符在其出现的函数内只报告一次
+/root/nginx-sticky-1.2.5//ngx_http_sticky_misc.c:176:10: 错误：未使用的变量‘hash’ [-Werror=unused-variable]
+   u_char hash[SHA_DIGEST_LENGTH];
+          ^
+/root/nginx-sticky-1.2.5//ngx_http_sticky_misc.c: 在函数‘ngx_http_sticky_misc_hmac_sha1’中:
+/root/nginx-sticky-1.2.5//ngx_http_sticky_misc.c:242:15: 错误：‘SHA_DIGEST_LENGTH’未声明(在此函数内第一次使用)
+   u_char hash[SHA_DIGEST_LENGTH];
+
+//解决(修改ngx_http_sticky_misc.c文件，新增#include <openssl/sha.h>和#include <openssl/md5.h>模块):
+sed -i '12a #include <openssl/sha.h>' /root/nginx-sticky-1.2.5/ngx_http_sticky_misc.c
+sed -i '12a #include <openssl/sha.h>' /root/nginx-sticky-1.2.5/ngx_http_sticky_misc.c
+```
+
+```php
+upstream {
+  sticky;
+  server 127.0.0.1:9000;
+  server 127.0.0.1:9001;
+  server 127.0.0.1:9002;
+}
+
+参数说明:
+sticky [name=route] [domain=.foo.bar] [path=/] [expires=1h] 
+    [hash=index|md5|sha1] [no_fallback] [secure] [httponly];
+
+[name=route]　　　　　　　设置用来记录会话的cookie名称
+[domain=.foo.bar]　　　　设置cookie作用的域名
+[path=/]　　　　　　　　  设置cookie作用的URL路径，默认根目录
+[expires=1h] 　　　　　　 设置cookie的生存期，默认不设置，浏览器关闭即失效，需要是大于1秒的值
+[hash=index|md5|sha1]   设置cookie中服务器的标识是用明文还是使用md5值，默认使用md5
+[no_fallback]　　　　　　 设置该项，当sticky的后端机器挂了以后，nginx返回502 (Bad Gateway or Proxy Error) ，而不转发到其他服务器，不建议设置
+[secure]　　　　　　　　  设置启用安全的cookie，需要HTTPS支持
+[httponly]　　　　　　　  允许cookie不通过JS泄漏，没用过
+```   
+
 ### 7. 其他功能
 #### 7.1 定时任务与日志切割
 ```php
@@ -220,3 +286,15 @@ client_body_buffer_size 128k;
 ',
 'crontab' => '*/1 * * * * sh /data/runlog.sh', //crontab命令
 ```
+
+### 8. 第三方模块
+#### 8.1 各模块地址
+- ngx_devel_kit https://github.com/simpl/ngx_devel_kit
+- set-misc-nginx-module https://github.com/agentzh/set-misc-nginx-module
+- memc-nginx-module https://github.com/agentzh/memc-nginx-module
+- echo-nginx-module https://github.com/agentzh/echo-nginx-module
+- lua-nginx-module https://github.com/chaoslawful/lua-nginx-module
+- srcache-nginx-module https://github.com/agentzh/srcache-nginx-module
+- drizzle-nginx-module https://github.com/chaoslawful/drizzle-nginx-module
+- rds-json-nginx-module https://github.com/agentzh/rds-json-nginx-module
+
