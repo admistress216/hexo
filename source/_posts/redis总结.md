@@ -254,6 +254,29 @@ auto-aof-rewrite-min-size 64mb #aof文件,至少超过64M时,重写
 问: 恢复时rdb和aof哪个恢复的快
 答: rdb快,因为其是数据的内存映射,直接载入到内存,而aof是命令,需要逐条执行
 ```
+#### 7.3 redis集群搭建
+```php
+Master配置:
+1:关闭rdb快照(备份工作交给slave)
+2:可以开启aof
+
+slave配置:
+1: 声明slaveof
+2: 配置密码[如果master有密码]
+3: [某1个]slave打开 rdb快照功能
+4: 配置是否只读[slave-read-only]
+5: 关闭aof
+6. pid文件名称修改
+```
+> 集群缺陷:
+> 每次salave断开后,(无论是主动断开,还是网络故障)
+> 再连接master
+> 
+> 都要master全部dump出来rdb,再aof,即同步的过程都要重新执行1遍.
+> 
+> 所以要记住---多台slave不要一下都启动起来,否则master可能IO剧增
+
+
 
 
 

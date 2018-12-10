@@ -12,6 +12,8 @@ get_defined_constants (PHP 4 >= 4.1.0, PHP 5) —  获取关联数组的名字�
 get_loaded_extensions (PHP 4, PHP 5) — 获取所有可用的模块
 get_extension_funcs (PHP 4, PHP 5) — 获取指定模块的可用函数
 get_declared_classes (PHP 4, PHP 5) —  获取由已定义类的名字所组成的数组
+gettype(): 获取类型
+is_type(): 判断是否是某种类型[is_int/is_integer,is_bool,is_string]
 ```
 
 ### 2.xdebug常用配置
@@ -381,7 +383,10 @@ EOT;
 
 ```
 > 区别: heredoc会进行变量解析(相当于双引号),nowdoc不会进行变量解析(相当于单引号)
-#### 7.2
+#### 7.2 .php5.6和php7.0的区别:
+ ```php
+ 1. php7.0删除<script language="php"></script>和aps(<% %>)标记
+         ```
 
 
 
