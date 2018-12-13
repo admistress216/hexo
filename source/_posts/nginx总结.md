@@ -204,7 +204,7 @@ server {
 ```php
 #设置允许发布内容为8M(允许上传大小)
 client_max_body_size 8M;
-client_body_buffer_size 128k;
+client_body_buffer_size 128k;  //缓存大小
 ```
 
 #### 6.1 会话持久性
@@ -287,6 +287,21 @@ sticky [name=route] [domain=.foo.bar] [path=/] [expires=1h]
 'crontab' => '*/1 * * * * sh /data/runlog.sh', //crontab命令
 ```
 
+#### 7.2 nginx各变量总结
+> [POST] 请求http://192.168.99.131/sub?name=liyi&age=18:
+> $query_string: get地址参数(name=liyi&age=18)
+> $request_uri: uri(/sub?name=liyi&age=18)
+> $echo_request_method: 请求的方式(post)
+> $document_root: nginx配置的root(目录地址)
+> $fastcgi_script_name: 请求的uri,无参数(/sub);
+> $uri: 请求的uri,无参数(/sub)
+> $nginx_version: nginx版本
+> $remote_addr/$remote_port: 请求端ip/port(192.168.99.1/51796)[使用虚拟机]
+> $server_addr/$server_port: 服务端ip/port(192.168.99.131/80)
+> $content_length: body字节数
+> $content_type: 获取enctype(对表单数据的编码格式,浏览器默认application/x-www-form-urlencoded,上传文件时multipart/form-data,纯文本文件text/plain)
+> [官方系统嵌入式变量地址](http://nginx.org/en/docs/http/ngx_http_core_module.html#variables)
+
 ### 8. 第三方模块
 #### 8.1 各模块地址
 - ngx_devel_kit https://github.com/simpl/ngx_devel_kit
@@ -297,4 +312,57 @@ sticky [name=route] [domain=.foo.bar] [path=/] [expires=1h]
 - srcache-nginx-module https://github.com/agentzh/srcache-nginx-module
 - drizzle-nginx-module https://github.com/chaoslawful/drizzle-nginx-module
 - rds-json-nginx-module https://github.com/agentzh/rds-json-nginx-module
+- luajit下载地址 https://github.com/openresty/luajit2/releases
+- lua-resty-redis https://github.com/openresty/lua-resty-redis
 
+
+> luajit安装方式:
+> make install PREFIX=/usr/local/luajit
+> export LUAJIT_LIB=/usr/local/luajit/lib
+> export LUAJIT_INC=/usr/local/luajit/include/luajit-2.1
+
+### 8.2 编译安装
+```php
+./configure --prefix=/usr/local/nginx \
+         --with-ld-opt="-Wl,-rpath,/usr/local/luajit/lib" \
+         --add-module=/usr/local/src/ngx_devel_kit \
+         --add-module=/usr/local/src/lua-nginx-module \
+         --add-module=/usr/local/src/echo-nginx-module \
+         --add-module=/usr/local/src/nginx-sticky-module-ng \
+         --add-module=/usr/local/src/redis2-nginx-module \
+         --add-module=/usr/local/src/set-misc-nginx-module
+```
+
+#### 8.3 ngx_lua总结
+```php
+ngx.req.read_body()  //开始读取body数据
+ngx.req.get_body_data() //获取body数据
+ngx.req.get_body_file() //获取body文件
+
+```
+
+#### 8.4 cjson安装
+```php
+
+//Makefile中:
+##### Build defaults #####
+LUA_VERSION =       5.1
+TARGET =            cjson.so
+PREFIX =            /usr/local/luajit
+#CFLAGS =            -g -Wall -pedantic -fno-inline
+CFLAGS =            -O3 -Wall -pedantic -DNDEBUG
+CJSON_CFLAGS =      -fpic
+CJSON_LDFLAGS =     -shared
+LUA_INCLUDE_DIR =   $(PREFIX)/include/luajit-2.1
+#LUA_CMODULE_DIR =   $(PREFIX)/lib/lua/$(LUA_VERSION)
+LUA_CMODULE_DIR =   $(PREFIX)/lib
+#LUA_MODULE_DIR =    $(PREFIX)/share/lua/$(LUA_VERSION)
+LUA_MODULE_DIR =    $(PREFIX)/share/lua/luajit-2.1.0-beta3
+LUA_BIN_DIR =       $(PREFIX)/bin
+
+make && make install
+//如果报静态错误,修改lua_cjson.c,去掉static修饰
+
+//nginx引入cpath
+lua_package_cpath '/usr/local/luajit/lib/?.so;;';
+```

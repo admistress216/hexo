@@ -14,6 +14,7 @@ get_extension_funcs (PHP 4, PHP 5) — 获取指定模块的可用函数
 get_declared_classes (PHP 4, PHP 5) —  获取由已定义类的名字所组成的数组
 gettype(): 获取类型
 is_type(): 判断是否是某种类型[is_int/is_integer,is_bool,is_string]
+usleep($micro_time): 以指定的微妙数延迟程序的执行(1s=1000毫秒=1000000微妙)
 ```
 
 ### 2.xdebug常用配置
@@ -383,11 +384,15 @@ EOT;
 
 ```
 > 区别: heredoc会进行变量解析(相当于双引号),nowdoc不会进行变量解析(相当于单引号)
-#### 7.2 .php5.6和php7.0的区别:
+#### 7.2 php5.6和php7.0的区别:
  ```php
  1. php7.0删除<script language="php"></script>和aps(<% %>)标记
-         ```
+```
 
+#### 7.3 phpredis中connect()和pconnect()的区别
+
+pconnect建立后的连接并不随请求的结束而关闭,而是依赖于php-fpm进程,php-fpm进程不死,redis connect就一直
+存在,直到空闲超时时自动断开.
 
 
 
