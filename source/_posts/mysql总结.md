@@ -489,3 +489,29 @@ $db['log'] = array(
     'dbcollat' => 'utf8_general_ci',
 );
 ```
+### 5.mysqli类
+#### 5.1 成员变量
+```php
+affected_rows: 返回先前操作受影响的行数(-1:error,0:受影响行数0)
+
+```
+#### 5.2 mysqli方法
+```php
+mysqli_affected_rows($link): 同成员变量affected_rows
+```
+
+#### 5.1 mysqli_result方法
+```php
+fetch_all(): 获取所有数据,生成数组[选项:MYSQLI_ASSOC,MYSQLI_NUM,MYSQLI_BOTH]
+
+```
+
+### 6.pdo
+#### 6.1 pdo连接
+```php
+$dsn = 'mysql:host=localhost;dbname=testdb;port=3306(默认);unixsocket=/path/to/abc.socket;charset=utf8';
+$options = [
+    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8', //同dsn中的charset
+];
+$dbh = new PDO($dsn, $username, $password, $options);
+```
