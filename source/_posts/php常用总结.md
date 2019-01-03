@@ -277,6 +277,7 @@ tar zxvf curl-7.60.0.tar.gz && cd curl-7.60.0
 --with-freetype-dir=/usr/include/freetype2/freetype \
 --with-curl=/usr/local/curl \
 --enable-gd-jis-conv \
+--enable-pcntl \
 --enable-fpm  #作用:产生php-fpm进程管理器以及配置文件
 
 参数说明:
@@ -284,6 +285,7 @@ tar zxvf curl-7.60.0.tar.gz && cd curl-7.60.0
 --with-openssl: openssl的支持，https加密传输时用到的
 --with-zlib: 打开zlib支持
 --enable-bcmath: 允许使用高精度数学函数 
+--enable-pcntl: pcntl扩展是PHP在Linux环境下进程控制的重要扩展，WorkerMan用到了其进程创建、信号控制、定时器、进程状态监控等特性。此扩展win平台不支持。
 
 [apache方式]:
 ./configure --prefix=/usr/local/fastphp --with-mysql=mysqlnd \
