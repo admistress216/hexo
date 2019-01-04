@@ -370,7 +370,7 @@ var_dump(intToIp1(ipToInt($ip)));
 ```
 
 ### 7. 手册总结
-#### 7.1 heredoc与nowdoc的区别
+#### 7.10 heredoc与nowdoc的区别
 ```php
 $heredoc = <<<EOD
 my name is {$name}.
@@ -386,17 +386,39 @@ EOT;
 
 ```
 > 区别: heredoc会进行变量解析(相当于双引号),nowdoc不会进行变量解析(相当于单引号)
-#### 7.2 php5.6和php7.0的区别:
+#### 7.11 php5.6和php7.0的区别:
  ```php
  1. php7.0删除<script language="php"></script>和aps(<% %>)标记
 ```
 
-#### 7.3 phpredis中connect()和pconnect()的区别
+#### 7.12 phpredis中connect()和pconnect()的区别
 
 pconnect建立后的连接并不随请求的结束而关闭,而是依赖于php-fpm进程,php-fpm进程不死,redis connect就一直
 存在,直到空闲超时时自动断开.
 
+#### 7.13 class总结
+##### 7.13.1 final关键字
+> 如果父类中的方法被声明为 final，则子类无法覆盖该方法。如果一个类被声明为 final，则不能被继承。
+> 属性不能被定义为 final，只有类和方法才能被定义为 final。
 
+#### 7.14 substr与mb_substr的区别
+```php
+substr($str,$start, $len);
+mb_substr($str, $start, $len, $charset); //$str可以是中文字符,以字为单位截取
+mb_substr('中文', 0, 1, 'utf-8');
+```
+
+#### 7.15 curl模拟put/delete发送,并用php接收,jquery也可实现put/delete发送(更改method参数)
+```php
+curl -v -X PUT http://composer.com/test.php -d 'a=b&c=d' //-v:显示请求信息 -X:指定发送方式 -d:参数
+$_SERVER['REQUEST_METHOD'] //接收请求方式,如put/delete/post
+file_get_contents('php://input') //接收put参数
+curl -v -X DELETE http://composer.com/test.php?a=b
+$_SERVER['QUERY_STRING'] //接收delete数据
+
+parse_str($str_param, $array) //解析参数字符串为数组,并赋值给$array
+
+```
 
 
 

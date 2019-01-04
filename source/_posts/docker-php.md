@@ -10,6 +10,7 @@ tags:
 ### 2. docker命令总结
 #### 2.1 docker基础命令
 ```php
+docker info: 查看docker的详细信息
 docker run: 运行应用(本地没有则自动下载)
 docker stop: 停止应用
 docker rm: 删除应用
