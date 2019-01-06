@@ -400,6 +400,37 @@ pconnect建立后的连接并不随请求的结束而关闭,而是依赖于php-f
 ##### 7.13.1 final关键字
 > 如果父类中的方法被声明为 final，则子类无法覆盖该方法。如果一个类被声明为 final，则不能被继承。
 > 属性不能被定义为 final，只有类和方法才能被定义为 final。
+##### 7.14.2 后期静态绑定
+```php
+class A {
+    public static function foo() {
+        static::who();
+    }
+
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+
+class B extends A {
+    public static function test() {
+        A::foo();
+        parent::foo();
+        self::foo();
+    }
+
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+class C extends B {
+    public static function who() {
+        echo __CLASS__."\n";
+    }
+}
+
+C::test(); //输出: ACC
+```
 
 #### 7.14 substr与mb_substr的区别
 ```php
