@@ -510,6 +510,7 @@ sticky [name=route] [domain=.foo.bar] [path=/] [expires=1h]
 - rds-json-nginx-module https://github.com/agentzh/rds-json-nginx-module
 - luajit下载地址 https://github.com/openresty/luajit2/releases
 - lua-resty-redis https://github.com/openresty/lua-resty-redis
+- lua-resty-http https://github.com/ledgetech/lua-resty-http
 
 
 > luajit安装方式:

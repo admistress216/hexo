@@ -284,11 +284,12 @@ pts: 伪终端(xshell等)
         源代码文件
         检测程序文件(configure/config)
         简易安装说明(INSTALL/README)
-    安装流程(2,3两步用make来简化,4步用make install简化):
-        1.下载解压,生成源代码文件
-        2.gcc编译(生成目标文件)
-        3.gcc进行函数库,主程序,子程序的链接,形成二进制文件
-        4.将二进制文件及相关配置文件安装至自己的主机
+    安装流程(3,4两步用make来简化,5步用make install简化):
+        1.下载解压,生成源代码文件并阅读INSTALL或README等文件内容
+        2.建立makefile:以自动检测程序(configure或config)检测操作环境,并建立Makefile这个文件
+        3.gcc编译(生成目标文件)
+        4.gcc进行函数库,主程序,子程序的链接,形成二进制文件
+        5.将二进制文件及相关配置文件安装至自己的主机
 #### 11.12 gcc
 - 参数总结
         -c: 编译、汇编到目标代码，不进行链接(由于不进行链接,所以不要和-l选项一起用)
@@ -298,6 +299,7 @@ pts: 伪终端(xshell等)
         -lm: 使用libm.so这个函数库
         -L/path: -l选项使用的函数库的搜索路径
         -I/path: include的路径
+        -Wall: 编译会变得严谨一些,警告信息也会显示出来
 - gcc例子
 ```php
 gcc sin.c -lm -L/lib -L/usr/lib -I/usr/include
@@ -306,8 +308,58 @@ gcc -c sin.c
 gcc -o sin sin.c
 ```
 
+#### 11.13 makefile的基本语法与变量
+- 基本语法
+目标(target): 目标文件1 目标文件2
+<tab> gcc -o 欲新建的可执行文件 目标文件1 目标文件2
 
+- 规则介绍
+在makefile中#代表批注
+<tab>需要在命令行的第一个字符
+目标(target)与相关文件(目标文件)之间需要以":"隔开
 
+- 例子(makefile内容)
+```php
+main: main.o haha.o sin_value.o cos_value.o
+        gcc -o main main.o haha.o sin_value.o cos_value.o -lm
+clean:
+        rm -f main main.o haha.o sina_value.o cos_value.o
+```
+
+- 用变量简化(make clean main,$@代表当前目前的目标)
+```php
+LIBS = -lm
+OBJS = main.o haha.o sin_value.o cos_value.o
+# $@代表当前目标mian
+main: ${OBJS}
+        gcc -o $@ ${OBJS} ${LIBS}
+clean:
+        rm -f main ${OBJS}
+```
+
+- 加入CFLAGS
+```php
+//命令行输入
+CFLAGS="-Wall" make clean main
+//makefile文件内
+LIBS = -lm
+OBJS = main.o haha.o sin_value.o cos_value.o
+CFLAGS = -Wall
+main: ${OBJS}
+        gcc -o main ${OBJS} ${LIBS}
+clean:
+        rm -f main ${OBJS}
+```
+
+#### 11.14 yum安装软件
+```php
+//安装gcc等软件
+yum groupinstall "Development Tools"
+//安装软件需要图形接口支持
+yum groupinstall "X Software Development"
+//安装的软件较旧
+yum groupinstall "Legacy Software Development"
+```
 
 
     
