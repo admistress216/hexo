@@ -6,6 +6,7 @@ tags:
 
 ### 1. 前端
 [js加密](https://github.com/Caligatio/jsSHA)
+[js-yaml:yaml parse/write for js](https://github.com/nodeca/js-yaml)
 
 ### 2. 技术论坛
 [SegmentFault](https://segmentfault.com/)
@@ -13,6 +14,7 @@ tags:
 [CSDN](https://www.csdn.net/)
 
 ### 3. 官方文档
+[综合文档资源语雀](https://www.yuque.com/)
 [PHP中文文档](http://php.net/manual/zh/)
 [Nginx中文文档](http://www.nginx.cn/doc/index.html)
 [Apache中文手册](http://httpd.apache.org/docs/2.4/zh-cn/)
