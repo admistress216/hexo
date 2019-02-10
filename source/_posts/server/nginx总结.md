@@ -236,6 +236,9 @@ location ~* \.(jpg|jpeg|gif|png) {
 浏览器下次去请求时,头信息发送这两个标签,服务器检查文件有没有发生变化,如无,则直接头信息返回etag,last_modified_since.
 
 ### 2. nginx各种错误原因总结
+#### 2.1 500 Internal Server Error
+<1> php parse error
+
 #### 2.1 502 Bad Gateway:
 <1> php-fpm后台死掉或没有开启;
 <2> 超过php-fpm的响应时间: request_terminate_timeout(用于php.ini超时时php-fpm停止此子进程)

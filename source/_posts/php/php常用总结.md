@@ -262,6 +262,8 @@ yum -y install gd gd-devel freetype libxml2-devel
 wget https://curl.haxx.se/download/curl-7.60.0.tar.gz --no-check-certificate
 tar zxvf curl-7.60.0.tar.gz && cd curl-7.60.0
 ./configure --prefix=/usr/local/curl && make && make install
+mac:
+./configure --prefix=/usr/local/curl --with-ssl=/usr/local/Cellar/openssl/1.0.2q(没有openssl看下方下载方法)
 
 编译php(连接mysql,gd,ttf并以fpm/fastcgi方式运行)[nginx方式]:
 ./configure --prefix=/usr/local/php \
@@ -304,7 +306,7 @@ windows:
 yum -y install openssl-devel
 mac:
 brew upgrade openssl
---with-openssl=/usr/local/Cellar/openssl/1.0.2p
+--with-openssl=/usr/local/Cellar/openssl/1.0.2q
 
 make && make install
 cp /usr/local/src/php-7.2.10/php.ini-development /usr/local/php/etc/php.ini

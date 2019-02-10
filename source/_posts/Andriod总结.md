@@ -5,7 +5,7 @@ tags:
 categories: andriod
 ---
 
-### 1. andriod进程保活手段
+###  andriod进程保活手段
 ```php
 1:利用不同的app进程使用广播来进行相互唤醒
 
@@ -13,3 +13,12 @@ categories: andriod
 
 3:调用系统api启动一个前台的Service进程，这样会在系统的通知栏生成一个Notification，用来让用户知道有这样一个app在运行着，哪怕当前的app退到了后台.比如网易云音乐.
 ```
+
+### 1.android安装
+
+> 所需软件
+> [jdk](https://www.oracle.com/technetwork/java/javase/downloads/index.html) :已经集成了jre,jdk是java的开发工具包,jre是java运行环境
+> 
+
+#### 1.1 jdk安装
+直接下载安装即可

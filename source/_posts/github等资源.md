@@ -12,6 +12,7 @@ tags:
 [SegmentFault](https://segmentfault.com/)
 [V2EX](https://www.v2ex.com/)
 [CSDN](https://www.csdn.net/)
+[cnode社区](https://cnodejs.org/)
 
 ### 3. 官方文档
 [综合文档资源语雀](https://www.yuque.com/)
@@ -23,6 +24,14 @@ tags:
 ### 4. 码库
 [CTOLib](https://www.ctolib.com/)
 [Github](https://www.github.com)
+[码云](https://gitee.com/)
 
 ### 5. 股票
 [雪球](https://xueqiu.com)
+
+### 6. node资源
+[express官网](http://expressjs.com/)
+[node-modules-github](https://github.com/node-modules)
+[utility工具(md5,sha1加密等)](https://github.com/node-modules/utility)
+[superagent](http://visionmedia.github.io/superagent/#request-basics) :superagent是个 http 方面的库，可以发起 get 或 post 请求。
+[cheerio](https://github.com/cheeriojs/cheerio) :大家可以理解成一个 Node.js 版的 jquery，用来从网页中以 css selector 取数据，使用方式跟 jquery 一样一样的。
