@@ -14,6 +14,7 @@ Redis is an open source (BSD licensed), in-memory data structure store, used as 
 ### 2.下载及安装
 下载地址: [redis官网](http://redis.io)
         [git地址](https://github.com/MicrosoftArchive/redis/releases)
+        [redis中文网](http://www.redis.cn/)
 安装: 
 ```php
 //必要环境: 

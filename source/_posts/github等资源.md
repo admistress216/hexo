@@ -21,6 +21,7 @@ tags:
 [Apache中文手册](http://httpd.apache.org/docs/2.4/zh-cn/)
 [Javascript手册](http://www.w3school.com.cn/jsref/index.asp)
 [Redis中文文档](http://redisdoc.com/index.html)
+[redis中文网](http://www.redis.cn/)
 
 ### 4. 码库
 [CTOLib](https://www.ctolib.com/)
