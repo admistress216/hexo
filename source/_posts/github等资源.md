@@ -20,6 +20,7 @@ tags:
 [Nginx中文文档](http://www.nginx.cn/doc/index.html)
 [Apache中文手册](http://httpd.apache.org/docs/2.4/zh-cn/)
 [Javascript手册](http://www.w3school.com.cn/jsref/index.asp)
+[Redis中文文档](http://redisdoc.com/index.html)
 
 ### 4. 码库
 [CTOLib](https://www.ctolib.com/)
@@ -35,3 +36,4 @@ tags:
 [utility工具(md5,sha1加密等)](https://github.com/node-modules/utility)
 [superagent](http://visionmedia.github.io/superagent/#request-basics) :superagent是个 http 方面的库，可以发起 get 或 post 请求。
 [cheerio](https://github.com/cheeriojs/cheerio) :大家可以理解成一个 Node.js 版的 jquery，用来从网页中以 css selector 取数据，使用方式跟 jquery 一样一样的。
+![abc](abc/haha.jpg)
