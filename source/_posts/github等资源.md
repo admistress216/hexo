@@ -15,6 +15,8 @@ tags:
 [cnode社区](https://cnodejs.org/)
 
 ### 3. 官方文档
+[各种手册](http://manual.51yip.com/)
+[Linux命令手册](http://linux.51yip.com/)
 [综合文档资源语雀](https://www.yuque.com/)
 [PHP中文文档](http://php.net/manual/zh/)
 [Nginx中文文档](http://www.nginx.cn/doc/index.html)
@@ -37,4 +39,7 @@ tags:
 [utility工具(md5,sha1加密等)](https://github.com/node-modules/utility)
 [superagent](http://visionmedia.github.io/superagent/#request-basics) :superagent是个 http 方面的库，可以发起 get 或 post 请求。
 [cheerio](https://github.com/cheeriojs/cheerio) :大家可以理解成一个 Node.js 版的 jquery，用来从网页中以 css selector 取数据，使用方式跟 jquery 一样一样的。
-![abc](abc/haha.jpg)
+
+### 7. 书籍
+[鸠摩搜书](https://www.jiumodiary.com/)
+

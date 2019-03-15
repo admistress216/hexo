@@ -5,6 +5,11 @@ tags:
 ---
 ### 1.使用语法
 #### 1.1 语法
+
+- 解释:
+> mp4中的h264编码，而h264有两种封装：
+> 一种是annexb模式，传统模式，有startcode，SPS和PPS是在ES中；另一种是mp4模式，一般mp4、mkv、avi会没有startcode，SPS和PPS以及其它信息被封装在container中，每一个frame前面是这个frame的长度，很多解码器只支持annexb这种模式，因此需要将mp4做转换；在ffmpeg中用h264_mp4toannexb_filter可以做转换；所以需要使用-bsf h264_mp4toannexb来进行转换；
+
 ```php
 命令格式：
     ffmpeg -i [输入文件名] [参数选项] -f [格式] [输出文件]
@@ -16,18 +21,22 @@ tags:
     如果没有输入文件，那么视音频捕捉（只在Linux下有效，因为Linux下把音视频设备当作文件句柄来处理）就会起作用。作为通用的规则，选项一般用于下一个特定的文件。如果你给 –b 64选项，改选会设置下一个视频速率。对于原始输入文件，格式选项可能是需要的。缺省情况下，ffmpeg试图尽可能的无损转换，采用与输入同样的音频视频参数来输出。
     
     2. 视频选项
-    (1) -b bitrate: 视频比特率
+    (1) -b:v/b bitrate: 视频比特率(建议用-b:v)
     (2) -vn: 视频过滤
     (3) -vcodec/c:v codec : 强制使用视频编解码器,copy为使用原编解码器
     (4) -s size(1920*1080): 设置像素大小
     (5) -pix_fmt format(网络一般采用yuv420p这个视频空间): 设置像素格式(用ffmpeg -pix_fmts查看支持,如YUV,RGB,NV等),如果无法选择选定的像素格式，则将打印警告并选择编码器支持的最佳像素格式.
+    (6) -r rate(24fps): 设置视频帧率
     
     3. 音频选项
-    (1) -ab bitrate(320k): 音频比特率(不指定默认为128k)
+    (1) -b:a/ab bitrate(320k): 音频比特率(不指定默认为128k)[建议用-b:a]
     (2) -ac channels(2): 设置音频声道(默认与源相同,1:单声道,2:双声道,立体声)
     (3) -ar rate(44100/48000): 设置音频采样率(如果不指定,默认为原音频的采样率)
     (4) -an: 音频过滤
     (5) -acodec/c:a codec : 强制使用音频编解码器,copy为使用原编解码器
+
+    4.公用选线
+    (1) -f fmt (input/output): 强制输入或输出文件格式,通常会自动检测输入文件的格式，并从输出文件的文件扩展名中猜出格式，因此在大多数情况下不需要此选项。 
 ```
 #### 1.2 例子
 ```php
@@ -135,7 +144,7 @@ ffmpeg -i input.mp4 -c:v libx265 output.mp4
 ffmpeg -i input.mp4 -c:v libx264 output.mp4
 ```
 
-#### 4.2 mp4转m3u8
+#### 4.2 mp4与m3u8互转
 - MP4存在问题
 ```php
 1.当视频时长比较长的时候，mp4的关键帧元素往往很大，需要加载很长时间才能开始播放，
@@ -155,7 +164,10 @@ ios设备主流的浏览器，同样的视频文件既可以在flash环境播放
 放、任意时间点拖拽播放、随机视频文件广告插入等等优势
 ```
 - mp4转m3u8
+
 ```php
+例一:
+
 //如果视频不为mp4格式，需先将视频转码为mp4，可使用如下命令进行转换
 ffmpeg -i 本地视频地址 -y -c:v libx264 -strict -2 转换视频.mp4
 //将mp4格式转换为ts格式(-vbsf:流过滤器的音频过滤选项)
@@ -164,6 +176,46 @@ ffmpeg -y -i 本地视频.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb �
 ffmpeg -i 本地视频.ts -c copy -map 0 -f segment -segment_list 视频索引.m3u8 -segment_time 5 前缀-%03d.ts
 //其中segment 就是切片，-segment_time表示隔几秒进行切一个文件，上面命令是隔5s，你也可以调整成更大的参数。
 ```
+
+```php
+例子二:
+
+ffmpeg -i "翟天临.mp4" -vcodec libx264 -ss 0 -t 00:03:30.46 -pix_fmt yuv420p -b:v 1.5M -r 25 -bufsize 1M -keyint_min 50 -g 50  -ac 2 -ab 128k -vf scale="trunc(oh*a/2)*2:min(720\,ih)" -bsf:v h264_mp4toannexb -hls_time 5 -max_muxing_queue_size 9999 -hls_list_size 0 -hls_segment_filename haha/v-%5d.ts haha/haha.m3u8
+
+解释:
+ffmpeg -i "$inputFile" 
+-vcodec libx264                                                 //设置编码器
+-ss 0 -t $maxTime                                               //转码时间
+-pix_fmt yuv420p                                                //设置像素格式
+-b:v 1.5M                                                       //比特率
+-r 25                                                           //帧率
+-bufsize 1M                                                     //码率控制缓冲器大小(一般与视频码率一致)
+-keyint_min 50 -g 50                                            //gop设置
+-ac 2                                                           //双声道
+-ab 128k                                                        //音频比特率
+-vf scale="trunc(oh*a/2)*2:min(720\,ih)"                        //视频过滤器
+-bsf:v h264_mp4toannexb                                         //流的比特流过滤器,用这个选项的原因见最上方解释,用-bsfs来查看所有流过滤器
+-hls_time $hls_time                                             //设置目标段(target segment)的长度(以此时间剪切),默认2秒
+-max_muxing_queue_size 9999                                     //当转码音频和/或视频流时，ffmpeg将不会开始写入输出，直到它为每个这样的流有一个数据包,应设置足够大
+-hls_list_size 0                                                //设置播放列表的最大数量,如果设置为0,则列表文件包含所有段,默认5
+-hls_segment_filename $outpath/v-%5d.ts                         //设置段文件名
+$outputFile 
+> /data0/service/mts2/logs/sh_$jobId.log 2>&1                   //标准输出,标准错误均到日志
+```
+
+- m3u8转mp4
+```php
+ffmpeg -i {$path}/total.ts 
+-c:a aac                                                        //设置音频转码器
+-c:v copy                                                       //设置视频转码器
+-async 1                                                        //音频同步方法,只有音频流的开始被校正，而没有任何后校正
+-movflags faststart -pass 2 
+-y                                                              //输出文件存在则直接覆盖
+-f mp4 
+{$path}/mp4.mp4  
+2>/dev/null
+```
+
 
 ### 5. 过滤器的使用(过滤器的原理为帧过滤)
 #### 5.1 参数
