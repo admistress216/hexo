@@ -13,6 +13,7 @@ tags:
 [V2EX](https://www.v2ex.com/)
 [CSDN](https://www.csdn.net/)
 [cnode社区](https://cnodejs.org/)
+[网易TED](https://open.163.com/ted/)
 
 ### 3. 官方文档
 [各种手册](http://manual.51yip.com/)
@@ -42,4 +43,7 @@ tags:
 
 ### 7. 书籍
 [鸠摩搜书](https://www.jiumodiary.com/)
+
+### 8. 牛人
+[聚优致成](https://blog.csdn.net/qq_29350001)
 

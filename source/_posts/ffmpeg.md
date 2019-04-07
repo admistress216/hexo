@@ -200,7 +200,7 @@ ffmpeg -i "$inputFile"
 -hls_list_size 0                                                //设置播放列表的最大数量,如果设置为0,则列表文件包含所有段,默认5
 -hls_segment_filename $outpath/v-%5d.ts                         //设置段文件名
 $outputFile 
-> /data0/service/mts2/logs/sh_$jobId.log 2>&1                   //标准输出,标准错误均到日志
+> /data0/service/mts2/logs/sh_$jobId.log 2>&1
 ```
 
 - m3u8转mp4

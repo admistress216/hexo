@@ -281,6 +281,7 @@ mac:
 --with-curl=/usr/local/curl \
 --enable-gd-jis-conv \
 --enable-pcntl \
+--enable-sockets \
 --enable-fpm  #作用:产生php-fpm进程管理器以及配置文件
 
 参数说明:
