@@ -25,6 +25,7 @@ tags:
 [Javascript手册](http://www.w3school.com.cn/jsref/index.asp)
 [Redis中文文档](http://redisdoc.com/index.html)
 [redis中文网](http://www.redis.cn/)
+[腾讯云开发者手册](https://cloud.tencent.com/developer/devdocs)
 
 ### 4. 码库
 [CTOLib](https://www.ctolib.com/)
@@ -46,4 +47,5 @@ tags:
 
 ### 8. 牛人
 [聚优致成](https://blog.csdn.net/qq_29350001)
+[小米笔记](https://notemi.cn/)
 

@@ -212,6 +212,7 @@ docker load -i ubuntu_18.04.tar或者docker load < ubuntu_18.04.tar
     导入到镜像
 ```
 
+#### ##########
 #### 3.21 创建容器
 ```php
 docker [container] create [OPTIONS]
@@ -275,7 +276,7 @@ docker restart [CONTAINER...]:重启容器
 ### 1.attach命令
 docker [container] attach [--detach-keys[=[]]] [--no-stdin] [--sig-proxy[=true]] CONTAINER
     OPTIONS包括:
-        --detach-keys[=[]]:指定退出attach模式的快捷键序列,默认是ctrl-q
+        --detach-keys[=[]]:指定退出attach模式的快捷键序列,默认是ctrl-p,ctrl-q
         --no-stdin=true|false:是否关闭标准输入,默认是打开
         --sig-proxy=true|false:是否代理收到的系统信号给应用进程，默认为true。
     例子:
@@ -283,35 +284,366 @@ docker [container] attach [--detach-keys[=[]]] [--no-stdin] [--sig-proxy[=true]]
         -i:给ubuntu镜像分配标准能力
         -t:给ubuntu镜像分配伪终端
         -d:后台运行容器，并返回容器ID；
-    docker attach test进入终端,ctrl-q退出终端
+    docker attach test进入终端,ctrl-p,ctrl-q退出终端
 
     弊端:
     <1> 当多个窗口同时attach到同一个容器的时候，所有窗口都会同步显示
     <2> 当某个窗口因命令阻塞时，其他窗口也无法执行操作了。
+### 2.exec命令
+docker [container] exec [-d|--detach] [--detach-keys[=[]]] [-i|-interactive] [--privileged] [-t|--tty] [-u|--user[=USER]] CONTAINER COMMAND [ARG...]
+    OPTIONS包括:
+        -d,--detach:在容器中后台执行命令
+        --detach-keys="":指定容器切回后台的按键
+        -e,--env=[]:指定环境变量列表
+        -i,--interactive=true|false:打开标准输入接受用户输入命令，默认值为false
+        --privileged=true|false:是否给执行命令以最高权限,默认为false
+        -t,--tty=true|false:分配伪终端,默认值为false
+        -u,--user="":执行命令的用户或ID
+    例子:
+    docker exec -it test /bin/bash
+    ctrl-p,ctrl-q退出终端
 ```
 
+#### 3.24 删除容器
+```php
+docker [container] rm [-f|--force] [-l|--link] [-v|--volumes] CONTAINER [CONTAINER...]
+    OPTIONS包括:
+        -f,--force=false:是否强行终止并删除一个运行中的容器
+        -l,--link=false:删除容器的连接,但保留容器
+        -v,--volumes=false:删除容器挂载的数据卷
+    注:
+    如果要直接删除一个运行中的容器，可以添加－f参数。Docker会先发送SIGKILL信号给容器，终止其中的应用，之后强行删除
+    docker run -d --name test1 ubuntu:18.04 /bin/sh -c "while true;do echo hello world;sleep 1;done"
+    docker rm test1 #报错
+    docker rm -f test1
+```
+
+#### 3.25 导入和导出容器
+```php
+### 导出容器:
+docker [container] export [-o|--output[=""]] CONTAINER
+    例子(两种方式):
+    docker export -o test.tar ce5
+    docker export ce5 > test.tar
+### 导入容器:
+docker import [-c|--change[=[]] [-m|--message[=MESSAGE]] file|URL|- [REPOSITORY[:TAG]]
+    用户可以通过-c,-change=[]选项在导人的同时执行对容器进行修改的Dockerfile指令
+    例子:
+        docker import test.tar - test/ubuntu:v1.0
+        docker images #查看
+    docker load(镜像导入)与docker export(容器导入)的区别:
+        实际上，既可以使用dockerload命令来导入镜像存储文件到本地镜像库，也可以使用docker[container] import命令来导入一个容器快照到本地镜像库。
+        这两者的区别在于：容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积更大。
+        此外，从容器快照文件导人时可以重新指定标签等元数据信息
+```
+
+#### 3.26 查看容器
+```php
+### 1.查看容器详情
+docker [container] inspect [OPTIONS] CONTAINER [CONTAINER...]
+
+### 2.查看容器内进程信息
+docker [container] top [OPTIONS] CONTAINER [CONTAINER...]
+
+### 3. 查看统计信息
+docker [container] stats [OPTIONS] [CONTAINER...]
+    OPTIONS包括:
+        -a,--all:输出所有容器统计信息,默认仅在运行中
+        --format string:格式化输出信息
+        --no-stream:不持续输出,默认会自动更新实时结果
+        --no-trunc:不截断输出结果。
+```
+
+#### 3.27 其他容器命令
+```php
+### 1. 容器与主机间复制文件
+docker [container] cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+    OPTIONS包括:
+        -a,--archive:打包模式,复制文件会带有原始的uid/gid信息
+        -L,--follow-link:跟随软连接,当原路径为软连接时,默认只复制链接信息，使用该选项会复制链接的目标内容。
+    例子(将本地路径的data复制到test容器的/tmp路径下):
+        docker [container] cp data test:/tmp/
+
+### 2. 查看容器内文件变更
+docker [container] diff CONTAINER
+    例子:
+        docker container diff test
+
+### 3. 查看容器端口映射情况
+docker [container] port CONTAINER [PRIVATE_PORT[/PROTO]]
+    例子:
+        docker container port test
+
+#### 4. 更新配置(后续更新)
+```
+
+#### ##########
+#### 3.31 数据卷
+```php
+定义: 
+    数据卷（DataVolumes）是一个可供容器使用的特殊目录，它将主机操作系统目录直接映射进容器，类似于Linux中的mount行为。
+特性:
+    数据卷可以在容器之间共事和重用，容器间传递数据将变得高效与方便；
+    对数据卷内数据的修改会立马生效，无论是容器内操作还是本地操作；
+    对数据卷的更新不会影响镜像，解耦开应用和数据；
+    卷会一直存在，直到没有容器使用，可以安全地卸载它
+### 1.创建数据卷
+docker volume create -d local test
+docker inspect/ls/prunu/rm:查看,列出,清除无用,删除数据卷
+
+### 2.绑定数据卷
+在运行docker run命令时,可以使用--mount选项来使用数据卷
+--mount支持三种数据卷:
+    volume: 普通数据卷,映射到主机/var/lib/docker/volume路径下
+    bind: 绑定数据卷,映射到主机指定目录下
+    tmpfs:临时数据卷,只存在于内存中
+例子:
+    docker run -d -P --name web mount type=bind,source=/webapp,destination=/opt/webapp training/webapp python app.py
+类似: 
+    docker run -d -P --name web -v /webapp:/opt/webapp training/webapp python app.py
+    Docker挂载数据卷的默认权限是读写（rw），用户也可以通过ro指定为只读：
+    docker run -d -P --name web -v /webapp:/opt/webapp:ro training/webapp python app.py
+```
+
+#### 3.32 端口映射与容器互联
+```php
+### 1. 端口映射
+当使用-P（大写的）标记时，Docker会随机映射一个49000-49900的端口到内部容器开放的网络端口
+    docker run -d  -P  training/webapp python app.py
+    使用 docker ps  -l 命令找到容器名称为nostalgic_morse
+    docker logs  -f nostalgic_morse
+-p (小写的）则可以指定要映射的端口，并且，在一个指定端口上只可以绑定一个容器。支持的格式有 IP:HostPort:ContainerPort|IP:: ContainerPort|HostPort:ContainerPort
+    解释:
+    HostPort:ContainerPort(本地5000到容器5000,3000到80)
+        docker run -d -p 5000:5000 -p 3000:80 training/webapp python app.py
+    IP:HostPort:ContainerPort(本地5000到容器5000)
+        docker run -d -p 127.0.0.1:5000:5000 training/webapppython app.py
+    IP:: ContainerPort(本地随机分配端口到容器5000)
+        docker run -d -p 127.0.0.1::5000 training/webapp python app.py
+查看容器端口配置:
+    docker port m_nginx
+查看容器特定端口配置:
+    docker port m_nginx 8080
+### 2. 容器互联
+例子:
+    docker run \
+      -d \
+      -p 80:80 \
+      -p 8080:8080 \
+      -p 8081:8081 \
+      -v /data/wwwroot:/usr/share/nginx/html \
+      -v /data/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
+      -v /data/nginx/conf:/etc/nginx/conf.d \
+      -v /data/wwwlogs:/var/log/nginx \
+      --link m_phpfpm:phpfpm \
+      --name m_nginx nginx:latest
+解释:
+    --link的参数格式为:--link name: alias,其中name是要链接的容器的名称，alias是别名。在m_nginx容器内可以看到对m_phpfpm的使用:
+        fastcgi_pass   phpfpm:9000;
+Docker通过两种方式为容器公开连接信息：
+    1. 更新环境变量,在m_nginx容器内通过env命令可以看到添加了m_phpfpm的变量信息,如: PHPFPM_NAME,PHPFPM_PORT_9000_TCP_PROTO,PHPFPM_PORT等
+    2. 更新/etc/hosts文件,m_nginx容器内的hosts: 
+        172.17.0.3  phpfpm 24bbbd9c5ab7 m_phpfpm
+        172.17.0.4  fa6bc439949f
+```
+#### ##########
+#### 3.41 使用Dockerfile创建镜像
 
 
+### 5. 实例(PHP+Nginx+Mysql环境)
+#### 5.11 创建资源文件夹
+```php
+/data
+    /mysql  存放数据库备份
+    /nginx  nginx配置文件
+        /conf
+        /rewrite
+    /wwwroot  网站文件
+    /wwwlogs  日志
+    /source  程序源代码
+    /download 下载目录
+```
+
+#### 5.12 部署mysql
+1. 拉取镜像
+```php
+docker pull mysql:5.7
+```
+2. 运行容器
+```php
+docker run \
+-d \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=12345678910 \
+--name m_mysql mysql:5.7
+```
+
+> 参数说明
+> -d 让容器在后台运行
+> -p 添加主机到容器的端口映射，前面是映射到本地的端口，后面是需要映射的端口
+> -e 设置环境变量，MYSQL_ROOT_PASSWORD这里是设置mysql的root用户的初始密码
+> --name 容器的名字，随便取，但是必须唯一
+
+3. 进入容器
+```php
+docker exec -it m_mysql /bin/bash
+### 安装vim
+apt-get update
+apt-get install vim
+```
+> 参数说明
+> -t 在容器里生产一个伪终端
+> -i 对容器内的标准输入 (STDIN) 进行交互
+
+4. 开启Mysql远程连接
+```php
+### 1. 进入mysql
+mysql -uroot -p12345678910 
+### 2. 选择数据库
+use mysql
+### 3.开启远程连接
+> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+> FLUSH PRIVILEGES;
+### 4. 重启
+service mysqld restart
+```
+
+#### 5.13 部署php
+1. 拉取镜像
+```php
+docker pull bitnami/php-fpm:7.0
+```
+2. 运行容器
+```php
+docker run \
+  -d \
+  -p 9000:9000 \
+  -v /data/wwwroot:/usr/share/nginx/html \
+  --link m_mysql:mysql \
+  --name m_phpfpm bitnami/php-fpm:7.0
+```
+> 参数说明
+> -d 让容器在后台运行
+> -p 添加主机到容器的端口映射
+> -v 添加目录映射
+> –-name 容器的名字，随便取，但是必须唯一
+> --link link 是在两个contain之间建立一种父子关系，父container中的web，可以得到子container db上的信息。
+> 通过link的方式创建容器，我们可以使用被Link容器的别名进行访问，而不是通过IP，解除了对IP的依赖。
+
+3. 创建php文件
+```php
+### 在/data/wwwroot文件夹中创建一个文件夹default，代表一个默认的工作目录，在default中创建一个文件
+touch index.php
+### 编辑php文件
+<?php
+  echo "hello!";
+?>
+### 这时候你进php容器，在/usr/share/nginx/html文件夹中也能看到我们创建的index.php文件，因为我们设置了目录映射。这样我们就可以直接在宿主机直接更改，而不用进容器修改
+```
+
+#### 5.14 配置nginx
+1. 拉取镜像
+```php
+docker pull nginx
+```
+2. 运行容器
+```php
+### 1. 我们先运行无挂载的容器，拿到nginx的一些配置文件
+docker run \
+  -d \
+  -p 80:80 \
+  --name m_nginx nginx:latest
+
+### 2. 然后使用docker cp操作复制出文件
+docker cp m_nginx:/etc/nginx/nginx.conf /data/nginx
+docker cp m_nginx:/etc/nginx/conf.d/default.conf /data/nginx/conf
+
+### 3. 删除之前的容器
+docker stop m_nginx
+docker rm m_nginx
+
+### 4. 重新运行容器
+docker run \
+  -d \
+  -p 80:80 \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -v /data/wwwroot:/usr/share/nginx/html \
+  -v /data/nginx/nginx.conf:/etc/nginx/nginx.conf:ro \
+  -v /data/nginx/conf:/etc/nginx/conf.d \
+  -v /data/wwwlogs:/var/log/nginx \
+  --link m_phpfpm:phpfpm \
+  --name m_nginx nginx:latest
+```
+
+> 参数说明：
+> -d 让容器在后台运行
+> -p 添加主机到容器的端口映射
+> -v 添加目录映射,这里最好nginx容器的根目录最好写成和php容器中根目录一样。但是不一点非要一模一样,如果不一样在配置nginx的时候需要注意
+> -–name 容器的名字
+> –-link 与另外一个容器建立起联系
+
+3. 编辑配置文件
+```php
+### 修改/data/nginx/conf/default.conf，我的配置如下：
+
+server {
+    listen       80;
+    server_name  _;
+    #charset koi8-r;
+    access_log  /var/log/nginx/default_nginx.log  main;
+    location / {
+        root   /usr/share/nginx/html/default;
+        index  index.html index.htm;
+    }
+    #error_page  404              /404.html;
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    location ~ \.php$ {
+        root           /usr/share/nginx/html/default;
+        fastcgi_pass   phpfpm:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+```
+
+#### 5.15 安装phpMyAdmin
+1. 下载解压
+下载地址: https://www.phpmyadmin.net/
+解压到/data/wwwroot/default，并将文件夹重命名为phpMyAdmin
 
 
+2. 配置phpMyAdmin
+打开 libraries 目录下，找到config.default.php,用文本编辑器打开文件。
+在blowfish_secret中填入值，如：
+```php
+$cfg['blowfish_secret'] = 'sadsadsadasffdsadfsa'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+```
+在host中填入数据库的访问IP，这里我填的Mysql容器的内网IP，你也可以填外网IP试试。
+```php
+$cfg['Servers'][$i]['host'] = '172.17.0.2';
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+3. 访问http://外网IP/phpMyAdmin/index.php
 
 
 
