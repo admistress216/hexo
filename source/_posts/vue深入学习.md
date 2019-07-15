@@ -31,114 +31,58 @@ cnpm install   /  npm install
 npm run dev
 ```
 
-### 2. vue的使用
+### 2. vue问题总结
+### 2.1 vue axios数据(data)赋值问题
 ```php
-//vue的模板里面,所有的内容要被一个根节点包含起来
-<template>
-  <div id="app"> //根节点
-        <h2>你好vue</h2>
-        <br>这是一个跟组件
-  </div>
-</template>
+1.问题描述:
+使用axios获取接口数据,然后将返回后的数据赋值给data()中定义的属性,执行后前端报错,undefined
 
-//绑定属性 v-bind:title或者:title
-<div v-bind:title="title">鼠标看一下</div>
-<div v-bind:class="{'red': flag,'blue': !flag}">我是一个div</div> //flag设为true
+2.原因:
+在请求执行成功后执行回调函数中的内容，回调函数处于其它函数的内部this不会与任何对象绑定，为undefined
 
-//绑定事件 v-on:click或者@click
-<button v-on:click="run1()">执行方法的第一种写法</button>
-<button @click="run2()">执行方法的第二种写法</button>
-//传值:
-<button @click="run3($e)">传值试验</button>
-//$e解析
-e.srcElement: 获取dom对象
-e.srcElement.style.background = 'red';
-e.srcElement.dataset: 获取自定义对象
-    <button data-aid="123" @click="eventFn($event)">事件对象</button>
-    console.log(e.srcElement.dataset.aid)
-
-//绑定html v-html
-<div v-html="h"></div>  //h: "<h2>我是h2</h2>"
-
-//绑定数据 {{msg}}或者v-text
-
-//v-for使用:
-<ul>
-    <li v-for="(item,index) in list" :class="{'red':key==0}">
-        {{key}}------{{item}}
-    </li>
-</ul>
-
-//获取dom节点
-<input type="text" ref="userinfo">
-console.log(this.$refs.userinfo);
-alert(this.$refs.userinfo.value);
-```
-
-### 3. v-bind的使用
-```php
-<!-- 绑定一个属性 -->
-<img v-bind:src="imageSrc">
-
-<!-- 缩写 -->
-<img :src="imageSrc">
-
-<!-- 内联字符串拼接 -->
-<img :src="'/path/to/images/' + fileName">
-
-<!-- class 绑定 -->
-<div :class="{ red: isRed }"></div>
-<div :class="[classA, classB]"></div>
-<div :class="[classA, { classB: isB, classC: isC }]">
-
-<!-- style 绑定 -->
-<div :style="{ fontSize: size + 'px' }"></div>
-<div :style="[styleObjectA, styleObjectB]"></div>
-
-<!-- 绑定一个有属性的对象 -->
-<div v-bind="{ id: someProp, 'other-attr': otherProp }"></div>
-
-<!-- 通过 prop 修饰符绑定 DOM 属性 -->
-<div v-bind:text-content.prop="text"></div>
-
-<!-- prop 绑定。“prop”必须在 my-component 中声明。-->
-<my-component :prop="someThing"></my-component>
-
-<!-- 通过 $props 将父组件的 props 一起传给子组件 -->
-<child-component v-bind="$props"></child-component>
-
-<!-- XLink -->
-<svg><a :xlink:special="foo"></a></svg>
-```
-
-### 4. 双向数据绑定(MVVM)
-> M: model
-> V: view
-> MVVM: model改变会影响视图view,view视图改变反过来会影响model
-> 注: 双向数据绑定必须在表单中使用
-
-```php
-<h2>msg</h2>
-<input type="text" v-model="msg"/>
-<button v-on:click="getMsg()">获取表单里面的数据</button>
-
-<script>
-    export default {
-        data() {
-            return {
-                msg: '你好vue'
-            }
-        },methods:{
-            getMsg(){
-                alert(this.msg)
-            }
-        }
+3.解决方案:
+一) 将指向vue对象的this赋值给外部方法定义的属性,然后在内部方法中使用该属性
+    mounted: function(){
+        var _this = this;
+        _this.$axios.get('api_url').then(function(response){
+            _this.prop = response.data;
+        })
     }
-</script>
+
+二) 使用箭头函数
+mounted: function(){
+    this.$axios.get('api_url').then(response => {
+        this.prop = response.data;
+    })
+}
 ```
 
-### 5. $event相关
+### 2.1 vue axios数据(data)赋值问题
 ```php
-e.srcElement.dataset.aid: 自定义数据
-e.keyCode: 按键码(enter:13)
+1.问题描述:
+点击子组件函数不生效
+
+2.原因:
+需要加原始修饰符
+
+3.解决方案:
+<product-card :product='product' @click.native="showProduct(product.id)" />
+
+showProduct(id){
+    this.$router.push('/product/'+id);
+},
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -265,6 +265,13 @@ tar zxvf curl-7.60.0.tar.gz && cd curl-7.60.0
 mac:
 ./configure --prefix=/usr/local/curl --with-ssl=/usr/local/Cellar/openssl/1.0.2q(没有openssl看下方下载方法)
 
+wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.13.1.tar.gz
+tar -zxvf libiconv-1.13.1.tar.gz
+cd libiconv-1.13.1
+./configure --prefix=/usr/local/libiconv
+make
+make install
+
 编译php(连接mysql,gd,ttf并以fpm/fastcgi方式运行)[nginx方式]:
 ./configure --prefix=/usr/local/php \
 --with-config-file-path=/usr/local/php/etc \
@@ -282,6 +289,7 @@ mac:
 --enable-gd-jis-conv \
 --enable-pcntl \
 --enable-sockets \
+--with-iconv=/usr/local/libiconv \
 --enable-fpm  #作用:产生php-fpm进程管理器以及配置文件
 
 参数说明:
@@ -312,6 +320,7 @@ brew upgrade openssl
 make && make install
 cp /usr/local/src/php-7.2.10/php.ini-development /usr/local/php/etc/php.ini
 cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf
 /usr/local/php/sbin/php-fpm && ps aux | grep php
 service mysqld start #启动mysql
 pkill -9 php-fpm #杀死php进程',
